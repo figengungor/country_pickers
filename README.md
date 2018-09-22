@@ -2,7 +2,7 @@
 
 Countries, codes, flags and several way of picking them at your service...one widget away...
 
-![](assets/cp.gif)
+![](art/cp.gif)
 
 
 ##### CountryPickerDropdown example
