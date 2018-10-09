@@ -68,6 +68,7 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
             onChanged: (value) {
               setState(() {
                 _selectedCountry = value;
+                widget.onValuePicked(value);
               });
             },
             items: items,
