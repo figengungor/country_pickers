@@ -26,7 +26,7 @@ class DemoPage extends StatefulWidget {
 }
 
 class _HomePageState extends State<DemoPage> {
-  Country _selectedDialogCountry = CountryPickerUtils.getCountryByIsoCode('tr');
+  Country _selectedDialogCountry = CountryPickerUtils.getCountryByPhoneCode('90');
   Country _selectedCupertinoCountry =
       CountryPickerUtils.getCountryByIsoCode('tr');
 

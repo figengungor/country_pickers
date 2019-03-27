@@ -29,4 +29,18 @@ class CountryPickerUtils {
       package: "country_pickers",
     );
   }
+
+  static Country getCountryByPhoneCode(String phoneCode) {
+    final _countries =
+    countriesList.map((item) => Country.fromMap(item)).toList();
+    try {
+      return _countries
+          .where((country) =>
+      country.phoneCode.toLowerCase() == phoneCode.toLowerCase())
+          .toList()[0];
+    } catch (error) {
+      throw Exception(
+          "The initialValue provided is not a supported phone code!");
+    }
+  }
 }
