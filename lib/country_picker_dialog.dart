@@ -59,7 +59,7 @@ class CountryPickerDialog extends StatefulWidget {
   /// property is set to 0.0
   final Widget divider;
 
-  /// The [divider] is not displayed if set to false. Default is set to true.
+  /// The [divider] is not displayed if set to false. Default is set to false.
   final bool isDividerEnabled;
 
   /// Determines if search [TextField] is shown or not
