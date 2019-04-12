@@ -81,9 +81,6 @@ class CountryPickerCupertino extends StatefulWidget {
 }
 
 class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
-  final List<Country> _allCountries =
-      countriesList.map((item) => Country.fromMap(item)).toList();
-
   @override
   Widget build(BuildContext context) {
     return _buildBottomPicker(_buildPicker());
@@ -114,13 +111,13 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
     return CupertinoPicker(
       itemExtent: widget.pickerItemHeight,
       backgroundColor: CupertinoColors.white,
-      children: _allCountries
+      children: countriesList
           .map<Widget>((Country country) => widget.itemBuilder != null
               ? widget.itemBuilder(country)
               : _buildDefaultItem(country))
           .toList(),
       onSelectedItemChanged: (int index) {
-        widget.onValuePicked(_allCountries[index]);
+        widget.onValuePicked(countriesList[index]);
       },
     );
   }

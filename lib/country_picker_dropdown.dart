@@ -27,24 +27,21 @@ class CountryPickerDropdown extends StatefulWidget {
 }
 
 class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
-  List<Country> _countries;
   Country _selectedCountry;
 
   @override
   void initState() {
-    _countries = countriesList.map((item) => Country.fromMap(item)).toList();
     if (widget.initialValue != null) {
       try {
-        _selectedCountry = _countries
-            .where((country) =>
-                country.isoCode == widget.initialValue.toUpperCase())
-            .toList()[0];
+        _selectedCountry = countriesList.firstWhere(
+          (country) => country.isoCode == widget.initialValue.toUpperCase(),
+        );
       } catch (error) {
         throw Exception(
             "The initialValue provided is not a supported iso code!");
       }
     } else {
-      _selectedCountry = _countries[0];
+      _selectedCountry = countriesList[0];
     }
 
     super.initState();
@@ -52,7 +49,7 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    List<DropdownMenuItem<Country>> items = _countries
+    List<DropdownMenuItem<Country>> items = countriesList
         .map((country) => DropdownMenuItem<Country>(
             value: country,
             child: widget.itemBuilder != null

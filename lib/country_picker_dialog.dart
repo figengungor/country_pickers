@@ -100,13 +100,11 @@ class CountryPickerDialog extends StatefulWidget {
 }
 
 class SingleChoiceDialogState extends State<CountryPickerDialog> {
-  final List<Country> _allCountries =
-      countriesList.map((item) => Country.fromMap(item)).toList();
   List<Country> _filteredCountries;
 
   @override
   void initState() {
-    _filteredCountries = _allCountries;
+    _filteredCountries = countriesList;
     super.initState();
   }
 
@@ -171,7 +169,7 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
           widget.searchInputDecoration ?? InputDecoration(hintText: 'Search'),
       onChanged: (String value) {
         setState(() {
-          _filteredCountries = _allCountries
+          _filteredCountries = countriesList
               .where((Country country) =>
                   country.name.toLowerCase().startsWith(value.toLowerCase()) ||
                   country.phoneCode.startsWith(value) ||
