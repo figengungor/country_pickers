@@ -6,8 +6,15 @@ import 'utils/utils.dart';
 
 ///Provides a customizable [DropdownButton] for all countries
 class CountryPickerDropdown extends StatefulWidget {
-  CountryPickerDropdown(
-      {this.itemBuilder, this.initialValue, this.onValuePicked});
+  CountryPickerDropdown({
+    this.itemFilter,
+    this.itemBuilder,
+    this.initialValue,
+    this.onValuePicked,
+  });
+
+  /// Filters the available country list
+  final ItemFilter itemFilter;
 
   ///This function will be called to build the child of DropdownMenuItem
   ///If it is not provided, default one will be used which displays
@@ -27,13 +34,18 @@ class CountryPickerDropdown extends StatefulWidget {
 }
 
 class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
+  List<Countries> _countries;
   Country _selectedCountry;
 
   @override
   void initState() {
+    _countries = countriesList
+        .where(widget.itemFilter ?? acceptAllCountries)
+        .toList();
+
     if (widget.initialValue != null) {
       try {
-        _selectedCountry = countriesList.firstWhere(
+        _selectedCountry = _countries.firstWhere(
           (country) => country.isoCode == widget.initialValue.toUpperCase(),
         );
       } catch (error) {
@@ -41,7 +53,7 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
             "The initialValue provided is not a supported iso code!");
       }
     } else {
-      _selectedCountry = countriesList[0];
+      _selectedCountry = _countries[0];
     }
 
     super.initState();
@@ -49,7 +61,7 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    List<DropdownMenuItem<Country>> items = countriesList
+    List<DropdownMenuItem<Country>> items = _countries
         .map((country) => DropdownMenuItem<Country>(
             value: country,
             child: widget.itemBuilder != null

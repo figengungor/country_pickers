@@ -1,3 +1,7 @@
+## [1.0.3] - 04/12/2019
+* Fix issue
+[#9](https://github.com/figengungor/country_pickers/issues/9) - Ability to filter countries. Thanks @ened
+
 ## [1.0.2] - 03/27/2019
 * Fix issue 
 [#6](https://github.com/figengungor/country_pickers/issues/6#issue-425932040)
