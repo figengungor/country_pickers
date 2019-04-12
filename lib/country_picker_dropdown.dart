@@ -34,7 +34,7 @@ class CountryPickerDropdown extends StatefulWidget {
 }
 
 class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
-  List<Countries> _countries;
+  List<Country> _countries;
   Country _selectedCountry;
 
   @override
