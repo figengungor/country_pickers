@@ -48,6 +48,9 @@ class CountryPickerDialog extends StatefulWidget {
   ///    value is used.
   final String semanticLabel;
 
+  /// Filters the available country list
+  final ItemFilter itemFilter;
+
   ///Callback that is called with selected item of type Country which returns a
   ///Widget to build list view item inside dialog
   final ItemBuilder itemBuilder;
@@ -82,6 +85,7 @@ class CountryPickerDialog extends StatefulWidget {
     this.titlePadding,
     this.contentPadding = const EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 16.0),
     this.semanticLabel,
+    this.itemFilter,
     this.itemBuilder,
     this.isDividerEnabled = false,
     this.divider = const Divider(
@@ -100,13 +104,19 @@ class CountryPickerDialog extends StatefulWidget {
 }
 
 class SingleChoiceDialogState extends State<CountryPickerDialog> {
-  final List<Country> _allCountries =
-      countriesList.map((item) => Country.fromMap(item)).toList();
+  List<Country> _allCountries;
+
   List<Country> _filteredCountries;
 
   @override
   void initState() {
+    _allCountries = countriesList
+        .map((item) => Country.fromMap(item))
+        .where(widget.itemFilter ?? acceptAllCountries)
+        .toList();
+
     _filteredCountries = _allCountries;
+
     super.initState();
   }
 

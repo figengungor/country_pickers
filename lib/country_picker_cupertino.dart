@@ -13,6 +13,9 @@ class CountryPickerCupertino extends StatefulWidget {
   /// Callback that is called with selected Country
   final ValueChanged<Country> onValuePicked;
 
+  /// Filters the available country list
+  final ItemFilter itemFilter;
+
   ///Callback that is called with selected item of type Country which returns a
   ///Widget to build list view item inside dialog
   final ItemBuilder itemBuilder;
@@ -65,6 +68,7 @@ class CountryPickerCupertino extends StatefulWidget {
     Key key,
     this.onValuePicked,
     this.itemBuilder,
+    this.itemFilter,
     this.pickerItemHeight = defaultPickerItemHeight,
     this.pickerSheetHeight = defaultPickerSheetHeight,
     this.textStyle,
@@ -81,8 +85,17 @@ class CountryPickerCupertino extends StatefulWidget {
 }
 
 class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
-  final List<Country> _allCountries =
-      countriesList.map((item) => Country.fromMap(item)).toList();
+  List<Country> _allCountries;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _allCountries = countriesList
+        .map((item) => Country.fromMap(item))
+        .where(widget.itemFilter ?? acceptAllCountries)
+        .toList();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -6,8 +6,15 @@ import 'utils/utils.dart';
 
 ///Provides a customizable [DropdownButton] for all countries
 class CountryPickerDropdown extends StatefulWidget {
-  CountryPickerDropdown(
-      {this.itemBuilder, this.initialValue, this.onValuePicked});
+  CountryPickerDropdown({
+    this.itemFilter,
+    this.itemBuilder,
+    this.initialValue,
+    this.onValuePicked,
+  });
+
+  /// Filters the available country list
+  final ItemFilter itemFilter;
 
   ///This function will be called to build the child of DropdownMenuItem
   ///If it is not provided, default one will be used which displays
@@ -32,7 +39,11 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
 
   @override
   void initState() {
-    _countries = countriesList.map((item) => Country.fromMap(item)).toList();
+    _countries = countriesList
+        .map((item) => Country.fromMap(item))
+        .where(widget.itemFilter ?? acceptAllCountries)
+        .toList();
+
     if (widget.initialValue != null) {
       try {
         _selectedCountry = _countries
