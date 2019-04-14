@@ -1,3 +1,7 @@
+## [1.0.4] - 04/14/2019
+* Fix issue
+[#7](https://github.com/figengungor/country_pickers/issues/7) - Add iso3Code. Thanks @endigo
+
 ## [1.0.3] - 04/12/2019
 * Fix issue
 [#9](https://github.com/figengungor/country_pickers/issues/9) - Ability to filter countries. Thanks @ened
