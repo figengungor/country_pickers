@@ -40,16 +40,14 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
   @override
   void initState() {
     _countries = countriesList
-        .map((item) => Country.fromMap(item))
         .where(widget.itemFilter ?? acceptAllCountries)
         .toList();
 
     if (widget.initialValue != null) {
       try {
-        _selectedCountry = _countries
-            .where((country) =>
-                country.isoCode == widget.initialValue.toUpperCase())
-            .toList()[0];
+        _selectedCountry = _countries.firstWhere(
+          (country) => country.isoCode == widget.initialValue.toUpperCase(),
+        );
       } catch (error) {
         throw Exception(
             "The initialValue provided is not a supported iso code!");

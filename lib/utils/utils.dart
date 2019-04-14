@@ -4,13 +4,10 @@ import 'package:flutter/widgets.dart';
 
 class CountryPickerUtils {
   static Country getCountryByIsoCode(String isoCode) {
-    final _countries =
-        countriesList.map((item) => Country.fromMap(item)).toList();
     try {
-      return _countries
-          .where((country) =>
-              country.isoCode.toLowerCase() == isoCode.toLowerCase())
-          .toList()[0];
+      return countriesList.firstWhere(
+        (country) => country.isoCode.toLowerCase() == isoCode.toLowerCase(),
+      );
     } catch (error) {
       throw Exception("The initialValue provided is not a supported iso code!");
     }
@@ -31,13 +28,10 @@ class CountryPickerUtils {
   }
 
   static Country getCountryByPhoneCode(String phoneCode) {
-    final _countries =
-    countriesList.map((item) => Country.fromMap(item)).toList();
     try {
-      return _countries
-          .where((country) =>
-      country.phoneCode.toLowerCase() == phoneCode.toLowerCase())
-          .toList()[0];
+      return countriesList.firstWhere(
+        (country) => country.phoneCode.toLowerCase() == phoneCode.toLowerCase(),
+      );
     } catch (error) {
       throw Exception(
           "The initialValue provided is not a supported phone code!");
