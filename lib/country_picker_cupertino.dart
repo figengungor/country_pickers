@@ -89,14 +89,26 @@ class CountryPickerCupertino extends StatefulWidget {
 }
 
 class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
-  List<Country> _allCountries;
+  List<Country> _countries;
+  FixedExtentScrollController _scrollController;
 
   @override
   void initState() {
     super.initState();
 
-    _allCountries =
+    _countries =
         countriesList.where(widget.itemFilter ?? acceptAllCountries).toList();
+
+    _scrollController =
+        this.widget.scrollController;
+
+    if ((_scrollController == null) && (this.widget.initialCountry != null)) {
+      var countyInList = _countries
+          .where((c) => c.phoneCode == this.widget.initialCountry.phoneCode)
+          .first;
+      _scrollController = FixedExtentScrollController(
+          initialItem: _countries.indexOf(countyInList));
+    }
   }
 
   @override
@@ -127,28 +139,17 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
   }
 
   Widget _buildPicker() {
-    FixedExtentScrollController _scrollController =
-        this.widget.scrollController;
-
-    if ((_scrollController == null) && (this.widget.initialCountry != null)) {
-      var countyInList = countriesList
-          .where((c) => c.phoneCode == this.widget.initialCountry.phoneCode)
-          .first;
-      _scrollController = FixedExtentScrollController(
-          initialItem: countriesList.indexOf(countyInList));
-    }
-
     return CupertinoPicker(
       scrollController: _scrollController,
       itemExtent: widget.pickerItemHeight,
       backgroundColor: CupertinoColors.white,
-      children: countriesList
+      children: _countries
           .map<Widget>((Country country) => widget.itemBuilder != null
               ? widget.itemBuilder(country)
               : _buildDefaultItem(country))
           .toList(),
       onSelectedItemChanged: (int index) {
-        widget.onValuePicked(countriesList[index]);
+        widget.onValuePicked(_countries[index]);
       },
     );
   }
