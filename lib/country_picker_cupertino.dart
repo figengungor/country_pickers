@@ -3,6 +3,7 @@ import 'package:country_pickers/country.dart';
 import 'package:country_pickers/utils/typedefs.dart';
 import 'package:country_pickers/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
+import 'dart:core';
 
 const double defaultPickerSheetHeight = 216.0;
 const double defaultPickerItemHeight = 32.0;
@@ -59,6 +60,8 @@ class CountryPickerCupertino extends StatefulWidget {
   /// {@macro flutter.rendering.wheelList.magnification}
   final double magnification;
 
+  final Country initialCountry;
+
   /// A [FixedExtentScrollController] to read and control the current item.
   ///
   /// If null, an implicit one will be created internally.
@@ -78,6 +81,7 @@ class CountryPickerCupertino extends StatefulWidget {
     this.useMagnifier,
     this.magnification,
     this.scrollController,
+    this.initialCountry,
   }) : super(key: key);
 
   @override
@@ -91,19 +95,21 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
   void initState() {
     super.initState();
 
-    _allCountries = countriesList
-        .where(widget.itemFilter ?? acceptAllCountries)
-        .toList();
+    _allCountries =
+        countriesList.where(widget.itemFilter ?? acceptAllCountries).toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    return _buildBottomPicker(_buildPicker());
+    return _buildBottomPicker(_buildPicker(), context);
   }
 
-  Widget _buildBottomPicker(Widget picker) {
+  Widget _buildBottomPicker(Widget picker, BuildContext context) {
+    var mediaQueryData = MediaQuery.of(context);
+
     return Container(
-      height: widget.pickerSheetHeight,
+      padding: EdgeInsets.only(bottom: mediaQueryData.padding.bottom),
+      height: widget.pickerSheetHeight + mediaQueryData.padding.bottom,
       color: CupertinoColors.white,
       child: DefaultTextStyle(
         style: widget.textStyle ??
@@ -114,16 +120,26 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
         child: GestureDetector(
           // Blocks taps from propagating to the modal sheet and popping.
           onTap: () {},
-          child: SafeArea(
-            child: picker,
-          ),
+          child: picker,
         ),
       ),
     );
   }
 
   Widget _buildPicker() {
+    FixedExtentScrollController _scrollController =
+        this.widget.scrollController;
+
+    if ((_scrollController == null) && (this.widget.initialCountry != null)) {
+      var countyInList = countriesList
+          .where((c) => c.phoneCode == this.widget.initialCountry.phoneCode)
+          .first;
+      _scrollController = FixedExtentScrollController(
+          initialItem: countriesList.indexOf(countyInList));
+    }
+
     return CupertinoPicker(
+      scrollController: _scrollController,
       itemExtent: widget.pickerItemHeight,
       backgroundColor: CupertinoColors.white,
       children: countriesList

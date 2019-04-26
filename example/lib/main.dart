@@ -31,7 +31,7 @@ class _HomePageState extends State<DemoPage> {
   Country _selectedCupertinoCountry =
       CountryPickerUtils.getCountryByIsoCode('tr');
   Country _selectedFilteredCupertinoCountry =
-      CountryPickerUtils.getCountryByIsoCode('AR');
+      CountryPickerUtils.getCountryByIsoCode('DE');
 
   @override
   Widget build(BuildContext context) {
@@ -178,6 +178,7 @@ class _HomePageState extends State<DemoPage> {
       builder: (BuildContext context) {
         return CountryPickerCupertino(
           pickerSheetHeight: 200.0,
+          initialCountry: _selectedCupertinoCountry,
           onValuePicked: (Country country) =>
               setState(() => _selectedCupertinoCountry = country),
         );
@@ -204,6 +205,7 @@ class _HomePageState extends State<DemoPage> {
       builder: (BuildContext context) {
         return CountryPickerCupertino(
           pickerSheetHeight: 200.0,
+          initialCountry: _selectedFilteredCupertinoCountry,
           onValuePicked: (Country country) =>
               setState(() => _selectedFilteredCupertinoCountry = country),
           itemFilter: (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode),
