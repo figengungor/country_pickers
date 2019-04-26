@@ -1,3 +1,12 @@
+## [1.1.0] - 04/26/2019
+* Fix issue
+[#12](https://github.com/figengungor/country_pickers/issues/12) - Fix background color setting for CountryPickerCupertino. Thanks @rhmoeller
+
+* Fix filtering issue for CountryPickerCupertino.
+
+* Fix Update for iPhone X UI issues with safe-area. [PR #13](https://github.com/figengungor/country_pickers/pull/13) Thanks @dhavalagile
+
+
 ## [1.0.4] - 04/14/2019
 * Fix issue
 [#7](https://github.com/figengungor/country_pickers/issues/7) - Add iso3Code. Thanks @endigo
