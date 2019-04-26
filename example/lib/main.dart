@@ -95,7 +95,7 @@ class _HomePageState extends State<DemoPage> {
               children: <Widget>[
                 Text('CountryPickerCupertino'),
                 ListTile(
-                  title: _buildCupertinoItem(_selectedCupertinoCountry),
+                  title: _buildCupertinoSelectedItem(_selectedCupertinoCountry),
                   onTap: _openCupertinoCountryPicker,
                 ),
               ],
@@ -107,7 +107,8 @@ class _HomePageState extends State<DemoPage> {
               children: <Widget>[
                 Text('CountryPickerCupertino (filtered)'),
                 ListTile(
-                  title: _buildCupertinoItem(_selectedFilteredCupertinoCountry),
+                  title: _buildCupertinoSelectedItem(
+                      _selectedFilteredCupertinoCountry),
                   onTap: _openFilteredCupertinoCountryPicker,
                 ),
               ],
@@ -198,7 +199,10 @@ class _HomePageState extends State<DemoPage> {
       context: context,
       builder: (BuildContext context) {
         return CountryPickerCupertino(
-          pickerSheetHeight: 200.0,
+          backgroundColor: Colors.black,
+          itemBuilder: _buildCupertinoItem,
+          pickerSheetHeight: 300.0,
+          pickerItemHeight: 75,
           initialCountry: _selectedCupertinoCountry,
           onValuePicked: (Country country) =>
               setState(() => _selectedCupertinoCountry = country),
@@ -209,6 +213,7 @@ class _HomePageState extends State<DemoPage> {
       context: context,
       builder: (BuildContext context) {
         return CountryPickerCupertino(
+          backgroundColor: Colors.white,
           pickerSheetHeight: 200.0,
           initialCountry: _selectedFilteredCupertinoCountry,
           onValuePicked: (Country country) =>
@@ -217,13 +222,35 @@ class _HomePageState extends State<DemoPage> {
         );
       });
 
-  Widget _buildCupertinoItem(Country country) => Row(
+  Widget _buildCupertinoSelectedItem(Country country) {
+    return Row(
+      children: <Widget>[
+        CountryPickerUtils.getDefaultFlagImage(country),
+        SizedBox(width: 8.0),
+        Text("+${country.phoneCode}"),
+        SizedBox(width: 8.0),
+        Flexible(child: Text(country.name))
+      ],
+    );
+  }
+
+  Widget _buildCupertinoItem(Country country) {
+    return DefaultTextStyle(
+      style:
+          const TextStyle(
+            color: CupertinoColors.white,
+            fontSize: 16.0,
+          ),
+      child: Row(
         children: <Widget>[
+          SizedBox(width: 8.0),
           CountryPickerUtils.getDefaultFlagImage(country),
           SizedBox(width: 8.0),
           Text("+${country.phoneCode}"),
           SizedBox(width: 8.0),
           Flexible(child: Text(country.name))
         ],
-      );
+      ),
+    );
+  }
 }

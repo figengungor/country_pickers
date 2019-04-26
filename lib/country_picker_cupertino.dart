@@ -8,6 +8,13 @@ import 'dart:core';
 const double defaultPickerSheetHeight = 216.0;
 const double defaultPickerItemHeight = 32.0;
 
+/// Color of picker background
+const Color _kDefaultBackground = Color(0xFFD2D4DB);
+
+// Eyeballed values comparing with a native picker.
+// Values closer to PI produces denser flatter lists.
+const double _kDefaultDiameterRatio = 1.35;
+
 ///Provides a customizable [CupertinoPicker] which displays all countries
 /// in cupertino style
 class CountryPickerCupertino extends StatefulWidget {
@@ -75,11 +82,11 @@ class CountryPickerCupertino extends StatefulWidget {
     this.pickerItemHeight = defaultPickerItemHeight,
     this.pickerSheetHeight = defaultPickerSheetHeight,
     this.textStyle,
-    this.diameterRatio,
-    this.backgroundColor,
-    this.offAxisFraction,
-    this.useMagnifier,
-    this.magnification,
+    this.diameterRatio = _kDefaultDiameterRatio,
+    this.backgroundColor = _kDefaultBackground,
+    this.offAxisFraction = 0.0,
+    this.useMagnifier = false,
+    this.magnification = 1.0,
     this.scrollController,
     this.initialCountry,
   }) : super(key: key);
@@ -99,8 +106,7 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
     _countries =
         countryList.where(widget.itemFilter ?? acceptAllCountries).toList();
 
-    _scrollController =
-        this.widget.scrollController;
+    _scrollController = this.widget.scrollController;
 
     if ((_scrollController == null) && (this.widget.initialCountry != null)) {
       var countyInList = _countries
@@ -122,7 +128,6 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
     return Container(
       padding: EdgeInsets.only(bottom: mediaQueryData.padding.bottom),
       height: widget.pickerSheetHeight + mediaQueryData.padding.bottom,
-      color: CupertinoColors.white,
       child: DefaultTextStyle(
         style: widget.textStyle ??
             const TextStyle(
@@ -142,7 +147,11 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
     return CupertinoPicker(
       scrollController: _scrollController,
       itemExtent: widget.pickerItemHeight,
-      backgroundColor: CupertinoColors.white,
+      diameterRatio: widget.diameterRatio,
+      backgroundColor: widget.backgroundColor,
+      offAxisFraction: widget.offAxisFraction,
+      useMagnifier: widget.useMagnifier,
+      magnification: widget.magnification,
       children: _countries
           .map<Widget>((Country country) => widget.itemBuilder != null
               ? widget.itemBuilder(country)
