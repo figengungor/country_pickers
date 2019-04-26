@@ -28,8 +28,13 @@ class DemoPage extends StatefulWidget {
 class _HomePageState extends State<DemoPage> {
   Country _selectedDialogCountry =
       CountryPickerUtils.getCountryByPhoneCode('90');
+
+  Country _selectedFilteredDialogCountry =
+      CountryPickerUtils.getCountryByPhoneCode('90');
+
   Country _selectedCupertinoCountry =
       CountryPickerUtils.getCountryByIsoCode('tr');
+
   Country _selectedFilteredCupertinoCountry =
       CountryPickerUtils.getCountryByIsoCode('DE');
 
@@ -76,10 +81,10 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('CountryPickerCupertino'),
+                Text('CountryPickerDialog (filtered)'),
                 ListTile(
-                  title: _buildCupertinoItem(_selectedCupertinoCountry),
-                  onTap: _openCupertinoCountryPicker,
+                  onTap: _openFilteredCountryPickerDialog,
+                  title: _buildDialogItem(_selectedFilteredDialogCountry),
                 ),
               ],
             ),
@@ -88,10 +93,10 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('CountryPickerDialog (filtered)'),
+                Text('CountryPickerCupertino'),
                 ListTile(
-                  onTap: _openFilteredCountryPickerDialog,
-                  title: _buildDialogItem(_selectedDialogCountry),
+                  title: _buildCupertinoItem(_selectedCupertinoCountry),
+                  onTap: _openCupertinoCountryPicker,
                 ),
               ],
             ),
@@ -173,17 +178,6 @@ class _HomePageState extends State<DemoPage> {
                 itemBuilder: _buildDialogItem)),
       );
 
-  void _openCupertinoCountryPicker() => showCupertinoModalPopup<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return CountryPickerCupertino(
-          pickerSheetHeight: 200.0,
-          initialCountry: _selectedCupertinoCountry,
-          onValuePicked: (Country country) =>
-              setState(() => _selectedCupertinoCountry = country),
-        );
-      });
-
   void _openFilteredCountryPickerDialog() => showDialog(
         context: context,
         builder: (context) => Theme(
@@ -195,10 +189,21 @@ class _HomePageState extends State<DemoPage> {
                 isSearchable: true,
                 title: Text('Select your phone code'),
                 onValuePicked: (Country country) =>
-                    setState(() => _selectedDialogCountry = country),
+                    setState(() => _selectedFilteredDialogCountry = country),
                 itemFilter: (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode),
                 itemBuilder: _buildDialogItem)),
       );
+
+  void _openCupertinoCountryPicker() => showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return CountryPickerCupertino(
+          pickerSheetHeight: 200.0,
+          initialCountry: _selectedCupertinoCountry,
+          onValuePicked: (Country country) =>
+              setState(() => _selectedCupertinoCountry = country),
+        );
+      });
 
   void _openFilteredCupertinoCountryPicker() => showCupertinoModalPopup<void>(
       context: context,
