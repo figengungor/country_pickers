@@ -97,7 +97,7 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
     super.initState();
 
     _countries =
-        countriesList.where(widget.itemFilter ?? acceptAllCountries).toList();
+        countryList.where(widget.itemFilter ?? acceptAllCountries).toList();
 
     _scrollController =
         this.widget.scrollController;

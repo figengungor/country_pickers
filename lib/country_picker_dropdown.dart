@@ -23,7 +23,7 @@ class CountryPickerDropdown extends StatefulWidget {
   final ItemBuilder itemBuilder;
 
   ///It should be one of the ISO ALPHA-2 Code that is provided
-  ///in countriesList map of countries.dart file.
+  ///in countryList map of countries.dart file.
   final String initialValue;
 
   ///This function will be called whenever a Country item is selected.
@@ -39,7 +39,7 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
 
   @override
   void initState() {
-    _countries = countriesList
+    _countries = countryList
         .where(widget.itemFilter ?? acceptAllCountries)
         .toList();
 

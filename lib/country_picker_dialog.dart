@@ -110,7 +110,7 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
 
   @override
   void initState() {
-    _allCountries = countriesList
+    _allCountries = countryList
         .where(widget.itemFilter ?? acceptAllCountries)
         .toList();
 

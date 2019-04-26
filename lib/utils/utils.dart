@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 class CountryPickerUtils {
   static Country getCountryByIsoCode(String isoCode) {
     try {
-      return countriesList.firstWhere(
+      return countryList.firstWhere(
         (country) => country.isoCode.toLowerCase() == isoCode.toLowerCase(),
       );
     } catch (error) {
@@ -29,7 +29,7 @@ class CountryPickerUtils {
 
   static Country getCountryByPhoneCode(String phoneCode) {
     try {
-      return countriesList.firstWhere(
+      return countryList.firstWhere(
         (country) => country.phoneCode.toLowerCase() == phoneCode.toLowerCase(),
       );
     } catch (error) {
