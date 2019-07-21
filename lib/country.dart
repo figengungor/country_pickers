@@ -11,6 +11,6 @@ class Country {
         isoCode: map['isoCode'],
         iso3Code: map['iso3Code'],
         currencyCode: map['currencyCode'],
-        currencyName: map['currencyCode'],
+        currencyName: map['currencyName'],
       );
 }
