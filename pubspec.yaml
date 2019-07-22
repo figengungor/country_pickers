@@ -1,8 +1,8 @@
 name: currency_pickers
-description: Countries, currency codes, flags and several way of picking them at your service...one widget away...
-version: 1.1.0
-author: Joshua Lorincz forked from Figen Güngör <figengungor1@gmail.com>
-homepage: https://github.com/JoshLorDeveloper/currency_pickers forked from https://github.com/figengungor/country_pickers
+description: Currency picker for flutter forked from Figen Güngör <figengungor1@gmail.com> repository country_pickers
+version: 1.0.0
+author: Joshua Lorincz <joshlordeveloper@gmail.com> 
+homepage: https://github.com/JoshLorDeveloper/currency_pickers
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
