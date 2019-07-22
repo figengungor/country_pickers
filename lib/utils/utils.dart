@@ -1,8 +1,8 @@
-import 'package:country_pickers/countries.dart';
-import 'package:country_pickers/country.dart';
+import 'package:currency_pickers/countries.dart';
+import 'package:currency_pickers/country.dart';
 import 'package:flutter/widgets.dart';
 
-class CountryPickerUtils {
+class CurrencyPickerUtils {
   static Country getCountryByIsoCode(String isoCode) {
     try {
       return countryList.firstWhere(
@@ -19,7 +19,7 @@ class CountryPickerUtils {
 
   static Widget getDefaultFlagImage(Country country) {
     return Image.asset(
-      CountryPickerUtils.getFlagImageAssetPath(country.isoCode),
+      CurrencyPickerUtils.getFlagImageAssetPath(country.isoCode),
       height: 20.0,
       width: 30.0,
       fit: BoxFit.fill,
@@ -27,14 +27,14 @@ class CountryPickerUtils {
     );
   }
 
-  static Country getCountryByPhoneCode(String phoneCode) {
+  static Country getCountryByCountryCode(String countryCode) {
     try {
       return countryList.firstWhere(
-        (country) => country.phoneCode.toLowerCase() == phoneCode.toLowerCase(),
+        (country) => country.countryCode.toLowerCase() == countryCode.toLowerCase(),
       );
     } catch (error) {
       throw Exception(
-          "The initialValue provided is not a supported phone code!");
+          "The initialValue provided is not a supported country code!");
     }
   }
 }
