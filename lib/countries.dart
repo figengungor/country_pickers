@@ -1192,8 +1192,8 @@ final List<Country> countryList = [
   ),
   Country(
     isoCode: "PW",
-    currencyCode: "(none)",
-    currencyName: "[E]",
+    currencyCode: "USD",
+    currencyName: "United States dollar",
     name: "Palau",
     iso3Code: "PLW",
   ),
