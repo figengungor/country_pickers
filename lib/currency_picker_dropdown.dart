@@ -91,7 +91,7 @@ class _CurrencyPickerDropdownState extends State<CurrencyPickerDropdown> {
   Widget _buildDefaultMenuItem(Country country) {
     return Row(
       children: <Widget>[
-        CurrencyountryPickerUtils.getDefaultFlagImage(country),
+        CurrencyPickerUtils.getDefaultFlagImage(country),
         SizedBox(
           width: 8.0,
         ),
