@@ -1,7 +1,7 @@
-import 'package:country_pickers/country.dart';
-import 'package:country_pickers/utils/typedefs.dart';
+import 'package:currency_pickers/country.dart';
+import 'package:currency_pickers/utils/typedefs.dart';
 
-import 'package:country_pickers/utils/my_alert_dialog.dart';
+import 'package:currency_pickers/utils/my_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'countries.dart';
@@ -9,7 +9,7 @@ import 'countries.dart';
 ///Provides a customizable [Dialog] which displays all countries
 /// with optional search feature
 
-class CountryPickerDialog extends StatefulWidget {
+class CurrencyPickerDialog extends StatefulWidget {
   /// Callback that is called with selected Country
   final ValueChanged<Country> onValuePicked;
 
@@ -78,7 +78,7 @@ class CountryPickerDialog extends StatefulWidget {
   ///The search empty view is displayed if nothing returns from search result
   final Widget searchEmptyView;
 
-  CountryPickerDialog({
+  CurrencyPickerDialog({
     Key key,
     this.onValuePicked,
     this.title,
@@ -103,7 +103,7 @@ class CountryPickerDialog extends StatefulWidget {
   }
 }
 
-class SingleChoiceDialogState extends State<CountryPickerDialog> {
+class SingleChoiceDialogState extends State<CurrencyPickerDialog> {
   List<Country> _allCountries;
 
   List<Country> _filteredCountries;
