@@ -51,6 +51,9 @@ class CurrencyPickerDialog extends StatefulWidget {
   /// Filters the available country list
   final ItemFilter itemFilter;
 
+  /// Function used to sort list
+  final int Function(Country a, Country b) itemSorter;
+
   ///Callback that is called with selected item of type Country which returns a
   ///Widget to build list view item inside dialog
   final ItemBuilder itemBuilder;
@@ -86,6 +89,7 @@ class CurrencyPickerDialog extends StatefulWidget {
     this.contentPadding = const EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 16.0),
     this.semanticLabel,
     this.itemFilter,
+    this.itemSorter,
     this.itemBuilder,
     this.isDividerEnabled = false,
     this.divider = const Divider(
@@ -113,6 +117,10 @@ class SingleChoiceDialogState extends State<CurrencyPickerDialog> {
     _allCountries = countryList
         .where(widget.itemFilter ?? acceptAllCountries)
         .toList();
+
+    if(widget.itemSorter != null){
+      _allCountries.sort(widget.itemSorter);
+    }
 
     _filteredCountries = _allCountries;
 
