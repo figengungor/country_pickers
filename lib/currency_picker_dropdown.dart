@@ -1,12 +1,12 @@
-import 'package:country_pickers/country.dart';
-import 'package:country_pickers/countries.dart';
-import 'package:country_pickers/utils/typedefs.dart';
+import 'package:currency_pickers/country.dart';
+import 'package:currency_pickers/countries.dart';
+import 'package:currency_pickers/utils/typedefs.dart';
 import 'package:flutter/material.dart';
 import 'utils/utils.dart';
 
 ///Provides a customizable [DropdownButton] for all countries
-class CountryPickerDropdown extends StatefulWidget {
-  CountryPickerDropdown({
+class CurrencyPickerDropdown extends StatefulWidget {
+  CurrencyPickerDropdown({
     this.itemFilter,
     this.itemBuilder,
     this.initialValue,
@@ -30,10 +30,10 @@ class CountryPickerDropdown extends StatefulWidget {
   final ValueChanged<Country> onValuePicked;
 
   @override
-  _CountryPickerDropdownState createState() => _CountryPickerDropdownState();
+  _CurrencyPickerDropdownState createState() => _CurrencyPickerDropdownState();
 }
 
-class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
+class _CurrencyPickerDropdownState extends State<CurrencyPickerDropdown> {
   List<Country> _countries;
   Country _selectedCountry;
 
@@ -91,7 +91,7 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
   Widget _buildDefaultMenuItem(Country country) {
     return Row(
       children: <Widget>[
-        CountryPickerUtils.getDefaultFlagImage(country),
+        CurrencyountryPickerUtils.getDefaultFlagImage(country),
         SizedBox(
           width: 8.0,
         ),
