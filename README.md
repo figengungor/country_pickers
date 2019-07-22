@@ -3,10 +3,10 @@
 Currency picker for flutter
 
 
-##### CountryPickerDropdown example
+##### CurrencyPickerDropdown example
 
 ```dart
- CountryPickerDropdown(
+ CurrencyPickerDropdown(
             initialValue: 'tr',
             itemBuilder: _buildDropdownItem,
             onValuePicked: (Country country) {
@@ -20,7 +20,7 @@ Currency picker for flutter
  Widget _buildDropdownItem(Country country) => Container(
         child: Row(
           children: <Widget>[
-            CountryPickerUtils.getDefaultFlagImage(country),
+            CurrencyPickerUtils.getDefaultFlagImage(country),
             SizedBox(
               width: 8.0,
             ),
@@ -31,14 +31,14 @@ Currency picker for flutter
 ```
 
 
-##### CountryPickerDialog example
+##### CurrencyPickerDialog example
 
 ```dart
-void _openCountryPickerDialog() => showDialog(
+void _openCurrencyPickerDialog() => showDialog(
         context: context,
         builder: (context) => Theme(
             data: Theme.of(context).copyWith(primaryColor: Colors.pink),
-            child: CountryPickerDialog(
+            child: CurrencyPickerDialog(
                 titlePadding: EdgeInsets.all(8.0),
                 searchCursorColor: Colors.pinkAccent,
                 searchInputDecoration: InputDecoration(hintText: 'Search...'),
@@ -52,13 +52,13 @@ void _openCountryPickerDialog() => showDialog(
 
 
 
-##### CountryPickerCupertino example
+##### CurrencyPickerCupertino example
 
 ```dart
- void _openCupertinoCountryPicker() => showCupertinoModalPopup<void>(
+ void _openCupertinoCurrencyPicker() => showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) {
-        return CountryPickerCupertino(
+        return CurrencyPickerCupertino(
           pickerSheetHeight: 300.0,
           onValuePicked: (Country country) =>
               setState(() => _selectedCupertinoCountry = country),
