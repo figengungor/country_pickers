@@ -232,13 +232,6 @@ final List<Country> countryList = [
     iso3Code: "IOT",
   ),
   Country(
-    isoCode: "UM",
-    currencyCode: "USD",
-    currencyName: "United States Dollar",
-    name: "United States Minor Outlying Islands",
-    iso3Code: "UMI",
-  ),
-  Country(
     isoCode: "VG",
     currencyCode: "USD",
     currencyName: "United States dollar",
