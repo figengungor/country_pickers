@@ -18,7 +18,7 @@ class CurrencyPickerDropdown extends StatefulWidget {
 
   ///This function will be called to build the child of DropdownMenuItem
   ///If it is not provided, default one will be used which displays
-  ///flag image, isoCode and phoneCode in a row.
+  ///flag image, isoCode and currencyCode in a row.
   ///Check _buildDefaultMenuItem method for details.
   final ItemBuilder itemBuilder;
 
@@ -95,7 +95,7 @@ class _CurrencyPickerDropdownState extends State<CurrencyPickerDropdown> {
         SizedBox(
           width: 8.0,
         ),
-        Text("(${country.isoCode}) +${country.phoneCode}"),
+        Text("(${country.isoCode}) +${country.currencyCode}"),
       ],
     );
   }
