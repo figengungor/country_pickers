@@ -183,7 +183,8 @@ class SingleChoiceDialogState extends State<CurrencyPickerDialog> {
           _filteredCountries = _allCountries
               .where((Country country) =>
                   country.name.toLowerCase().startsWith(value.toLowerCase()) ||
-                  country.currencyCode.startsWith(value) ||
+                  country.currencyCode.toLowerCase().startsWith(value.toLowerCase()) ||
+                  country.currencyName.toLowerCase().startsWith(value.toLowerCase()) ||
                   country.isoCode.toLowerCase().startsWith(value.toLowerCase()))
               .toList();
         });
