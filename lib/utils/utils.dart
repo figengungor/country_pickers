@@ -23,7 +23,7 @@ class CurrencyPickerUtils {
       height: 20.0,
       width: 30.0,
       fit: BoxFit.fill,
-      package: "country_pickers",
+      package: "currency_pickers",
     );
   }
 
