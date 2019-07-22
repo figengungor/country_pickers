@@ -1,8 +1,6 @@
 # country_pickers
 
-Countries, codes, flags and several way of picking them at your service...one widget away...
-
-![](art/cp.gif)
+Countries, currency codes, flags and several way of picking them at your service...one widget away...
 
 
 ##### CountryPickerDropdown example
@@ -26,7 +24,7 @@ Countries, codes, flags and several way of picking them at your service...one wi
             SizedBox(
               width: 8.0,
             ),
-            Text("+${country.phoneCode}(${country.isoCode})"),
+            Text("+${country.currencyCode}(${country.isoCode})"),
           ],
         ),
       );
@@ -70,5 +68,5 @@ void _openCountryPickerDialog() => showDialog(
 
 
 ## Credits
-
+Forked from [country_pickers](https://github.com/figengungor/country_pickers) repo.
 Thanks goes to [country-flags](https://github.com/hjnilsson/country-flags) repo for the flag image assets.
