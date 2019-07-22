@@ -110,7 +110,7 @@ class _CupertinoCurrencyPickerState extends State<CurrencyPickerCupertino> {
 
     if ((_scrollController == null) && (this.widget.initialCountry != null)) {
       var countyInList = _countries
-          .where((c) => c.phoneCode == this.widget.initialCountry.phoneCode)
+          .where((c) => c.currencyCode == this.widget.initialCountry.currencyCode)
           .first;
       _scrollController = FixedExtentScrollController(
           initialItem: _countries.indexOf(countyInList));
