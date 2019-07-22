@@ -27,10 +27,10 @@ class CurrencyPickerUtils {
     );
   }
 
-  static Country getCountryByCountryCode(String countryCode) {
+  static Country getCountryByCurrencyCode(String currencyCode) {
     try {
       return countryList.firstWhere(
-        (country) => country.countryCode.toLowerCase() == countryCode.toLowerCase(),
+        (country) => country.currencyCode.toLowerCase() == currencyCode.toLowerCase(),
       );
     } catch (error) {
       throw Exception(
