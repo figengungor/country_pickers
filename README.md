@@ -68,7 +68,25 @@ void _openCountryPickerDialog() => showDialog(
       });
 ```
 
+##### Choose your preferred language
+you can change the language to (Arabic, Spanish, French and Germany) if you followed those instructions in [countries.dart](./lib/countries.dart)
+
+```dart
+final List <Country> countryList = 
+new List<Country>.generate(255, (i) => Country(
+    isoCode: isoCodeArr[i],
+    phoneCode: phoneCodeArr[i],
+    name: countryListEN[i],
+    // If you want the Arabic Version: change countryListEN to countryListAR
+    // If you want the French Version: change countryListEN to countryListFR
+    // If you want the German Version: change countryListEN to countryListDR
+    // If you want the Spanish Version: change countryListEN to countryListSP
+    iso3Code: iso3CodeArr[i],
+));
+```
+
 
 ## Credits
 
 Thanks goes to [country-flags](https://github.com/hjnilsson/country-flags) repo for the flag image assets.
+

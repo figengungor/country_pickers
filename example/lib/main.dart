@@ -30,13 +30,13 @@ class _HomePageState extends State<DemoPage> {
       CountryPickerUtils.getCountryByPhoneCode('90');
 
   Country _selectedFilteredDialogCountry =
-      CountryPickerUtils.getCountryByPhoneCode('90');
+      CountryPickerUtils.getCountryByPhoneCode('20');
 
   Country _selectedCupertinoCountry =
       CountryPickerUtils.getCountryByIsoCode('tr');
 
   Country _selectedFilteredCupertinoCountry =
-      CountryPickerUtils.getCountryByIsoCode('DE');
+      CountryPickerUtils.getCountryByIsoCode('EG');
 
   @override
   Widget build(BuildContext context) {
@@ -122,10 +122,10 @@ class _HomePageState extends State<DemoPage> {
   _buildCountryPickerDropdown(bool filtered) => Row(
         children: <Widget>[
           CountryPickerDropdown(
-            initialValue: 'AR',
+            initialValue: 'EG',
             itemBuilder: _buildDropdownItem,
             itemFilter: filtered
-                ? (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode)
+                ? (c) => ['EG', 'DE', 'GB', 'CN'].contains(c.isoCode)
                 : null,
             onValuePicked: (Country country) {
               print("${country.name}");
@@ -191,7 +191,7 @@ class _HomePageState extends State<DemoPage> {
                 title: Text('Select your phone code'),
                 onValuePicked: (Country country) =>
                     setState(() => _selectedFilteredDialogCountry = country),
-                itemFilter: (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode),
+                itemFilter: (c) => ['EG', 'DE', 'GB', 'CN'].contains(c.isoCode),
                 itemBuilder: _buildDialogItem)),
       );
 
@@ -218,7 +218,7 @@ class _HomePageState extends State<DemoPage> {
           initialCountry: _selectedFilteredCupertinoCountry,
           onValuePicked: (Country country) =>
               setState(() => _selectedFilteredCupertinoCountry = country),
-          itemFilter: (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode),
+          itemFilter: (c) => ['EG', 'DE', 'GB', 'CN'].contains(c.isoCode),
         );
       });
 
@@ -254,3 +254,4 @@ class _HomePageState extends State<DemoPage> {
     );
   }
 }
+
