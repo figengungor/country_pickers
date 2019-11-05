@@ -1,7 +1,7 @@
-import 'package:country_pickers/country.dart';
+import 'package:currency_pickers/country.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:country_pickers/country_pickers.dart';
+import 'package:currency_pickers/currency_pickers.dart';
 
 void main() => runApp(MyApp());
 
@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Country Pickers Demo',
+      title: 'Currency Pickers Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -27,22 +27,22 @@ class DemoPage extends StatefulWidget {
 
 class _HomePageState extends State<DemoPage> {
   Country _selectedDialogCountry =
-      CountryPickerUtils.getCountryByPhoneCode('90');
+      CurrencyPickerUtils.getCountryByPhoneCode('90');
 
   Country _selectedFilteredDialogCountry =
-      CountryPickerUtils.getCountryByPhoneCode('90');
+      CurrencyPickerUtils.getCountryByPhoneCode('90');
 
   Country _selectedCupertinoCountry =
-      CountryPickerUtils.getCountryByIsoCode('tr');
+      CurrencyPickerUtils.getCountryByIsoCode('tr');
 
   Country _selectedFilteredCupertinoCountry =
-      CountryPickerUtils.getCountryByIsoCode('DE');
+      CurrencyPickerUtils.getCountryByIsoCode('DE');
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Country Pickers Demo'),
+        title: Text('Currency Pickers Demo'),
       ),
       body: ListView(
         padding: EdgeInsets.all(8.0),
@@ -51,8 +51,8 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('CountryPickerDropdown'),
-                ListTile(title: _buildCountryPickerDropdown(false)),
+                Text('CurrencyPickerDropdown'),
+                ListTile(title: _buildCurrencyPickerDropdown(false)),
               ],
             ),
           ),
@@ -60,8 +60,8 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('CountryPickerDropdown (filtered)'),
-                ListTile(title: _buildCountryPickerDropdown(true)),
+                Text('CurrencyPickerDropdown (filtered)'),
+                ListTile(title: _buildCurrencyPickerDropdown(true)),
               ],
             ),
           ),
@@ -69,9 +69,9 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('CountryPickerDialog'),
+                Text('CurrencyPickerDialog'),
                 ListTile(
-                  onTap: _openCountryPickerDialog,
+                  onTap: _openCurrencyPickerDialog,
                   title: _buildDialogItem(_selectedDialogCountry),
                 ),
               ],
@@ -81,9 +81,9 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('CountryPickerDialog (filtered)'),
+                Text('CurrencyPickerDialog (filtered)'),
                 ListTile(
-                  onTap: _openFilteredCountryPickerDialog,
+                  onTap: _openFilteredCurrencyPickerDialog,
                   title: _buildDialogItem(_selectedFilteredDialogCountry),
                 ),
               ],
@@ -93,10 +93,10 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('CountryPickerCupertino'),
+                Text('CurrencyPickerCupertino'),
                 ListTile(
                   title: _buildCupertinoSelectedItem(_selectedCupertinoCountry),
-                  onTap: _openCupertinoCountryPicker,
+                  onTap: _openCupertinoCurrencyPicker,
                 ),
               ],
             ),
@@ -105,11 +105,11 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('CountryPickerCupertino (filtered)'),
+                Text('CurrencyPickerCupertino (filtered)'),
                 ListTile(
                   title: _buildCupertinoSelectedItem(
                       _selectedFilteredCupertinoCountry),
-                  onTap: _openFilteredCupertinoCountryPicker,
+                  onTap: _openFilteredCupertinoCurrencyPicker,
                 ),
               ],
             ),
@@ -119,9 +119,9 @@ class _HomePageState extends State<DemoPage> {
     );
   }
 
-  _buildCountryPickerDropdown(bool filtered) => Row(
+  _buildCurrencyPickerDropdown(bool filtered) => Row(
         children: <Widget>[
-          CountryPickerDropdown(
+          CurrencyPickerDropdown(
             initialValue: 'AR',
             itemBuilder: _buildDropdownItem,
             itemFilter: filtered
@@ -145,7 +145,7 @@ class _HomePageState extends State<DemoPage> {
   Widget _buildDropdownItem(Country country) => Container(
         child: Row(
           children: <Widget>[
-            CountryPickerUtils.getDefaultFlagImage(country),
+            CurrencyPickerUtils.getDefaultFlagImage(country),
             SizedBox(
               width: 8.0,
             ),
@@ -156,7 +156,7 @@ class _HomePageState extends State<DemoPage> {
 
   Widget _buildDialogItem(Country country) => Row(
         children: <Widget>[
-          CountryPickerUtils.getDefaultFlagImage(country),
+          CurrencyPickerUtils.getDefaultFlagImage(country),
           SizedBox(width: 8.0),
           Text("+${country.phoneCode}"),
           SizedBox(width: 8.0),
@@ -164,11 +164,11 @@ class _HomePageState extends State<DemoPage> {
         ],
       );
 
-  void _openCountryPickerDialog() => showDialog(
+  void _openCurrencyPickerDialog() => showDialog(
         context: context,
         builder: (context) => Theme(
             data: Theme.of(context).copyWith(primaryColor: Colors.pink),
-            child: CountryPickerDialog(
+            child: CurrencyPickerDialog(
                 titlePadding: EdgeInsets.all(8.0),
                 searchCursorColor: Colors.pinkAccent,
                 searchInputDecoration: InputDecoration(hintText: 'Search...'),
@@ -179,11 +179,11 @@ class _HomePageState extends State<DemoPage> {
                 itemBuilder: _buildDialogItem)),
       );
 
-  void _openFilteredCountryPickerDialog() => showDialog(
+  void _openFilteredCurrencyPickerDialog() => showDialog(
         context: context,
         builder: (context) => Theme(
             data: Theme.of(context).copyWith(primaryColor: Colors.pink),
-            child: CountryPickerDialog(
+            child: CurrencyPickerDialog(
                 titlePadding: EdgeInsets.all(8.0),
                 searchCursorColor: Colors.pinkAccent,
                 searchInputDecoration: InputDecoration(hintText: 'Search...'),
@@ -195,10 +195,10 @@ class _HomePageState extends State<DemoPage> {
                 itemBuilder: _buildDialogItem)),
       );
 
-  void _openCupertinoCountryPicker() => showCupertinoModalPopup<void>(
+  void _openCupertinoCurrencyPicker() => showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) {
-        return CountryPickerCupertino(
+        return CurrencyPickerCupertino(
           backgroundColor: Colors.black,
           itemBuilder: _buildCupertinoItem,
           pickerSheetHeight: 300.0,
@@ -209,10 +209,10 @@ class _HomePageState extends State<DemoPage> {
         );
       });
 
-  void _openFilteredCupertinoCountryPicker() => showCupertinoModalPopup<void>(
+  void _openFilteredCupertinoCurrencyPicker() => showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) {
-        return CountryPickerCupertino(
+        return CurrencyPickerCupertino(
           backgroundColor: Colors.white,
           pickerSheetHeight: 200.0,
           initialCountry: _selectedFilteredCupertinoCountry,
@@ -225,7 +225,7 @@ class _HomePageState extends State<DemoPage> {
   Widget _buildCupertinoSelectedItem(Country country) {
     return Row(
       children: <Widget>[
-        CountryPickerUtils.getDefaultFlagImage(country),
+        CurrencyPickerUtils.getDefaultFlagImage(country),
         SizedBox(width: 8.0),
         Text("+${country.phoneCode}"),
         SizedBox(width: 8.0),
@@ -244,7 +244,7 @@ class _HomePageState extends State<DemoPage> {
       child: Row(
         children: <Widget>[
           SizedBox(width: 8.0),
-          CountryPickerUtils.getDefaultFlagImage(country),
+          CurrencyPickerUtils.getDefaultFlagImage(country),
           SizedBox(width: 8.0),
           Text("+${country.phoneCode}"),
           SizedBox(width: 8.0),
