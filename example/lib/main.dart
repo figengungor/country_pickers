@@ -27,10 +27,10 @@ class DemoPage extends StatefulWidget {
 
 class _HomePageState extends State<DemoPage> {
   Country _selectedDialogCountry =
-      CurrencyPickerUtils.getCountryByPhoneCode('90');
+      CurrencyPickerUtils.getCountryByCurrencyCode('USD');
 
   Country _selectedFilteredDialogCountry =
-      CurrencyPickerUtils.getCountryByPhoneCode('90');
+      CurrencyPickerUtils.getCountryByCurrencyCode('USD');
 
   Country _selectedCupertinoCountry =
       CurrencyPickerUtils.getCountryByIsoCode('tr');
@@ -149,7 +149,7 @@ class _HomePageState extends State<DemoPage> {
             SizedBox(
               width: 8.0,
             ),
-            Text("+${country.phoneCode}(${country.isoCode})"),
+            Text("+${country.currencyCode}(${country.isoCode})"),
           ],
         ),
       );
@@ -158,7 +158,7 @@ class _HomePageState extends State<DemoPage> {
         children: <Widget>[
           CurrencyPickerUtils.getDefaultFlagImage(country),
           SizedBox(width: 8.0),
-          Text("+${country.phoneCode}"),
+          Text("+${country.currencyCode}"),
           SizedBox(width: 8.0),
           Flexible(child: Text(country.name))
         ],
@@ -227,7 +227,7 @@ class _HomePageState extends State<DemoPage> {
       children: <Widget>[
         CurrencyPickerUtils.getDefaultFlagImage(country),
         SizedBox(width: 8.0),
-        Text("+${country.phoneCode}"),
+        Text("+${country.currencyCode}"),
         SizedBox(width: 8.0),
         Flexible(child: Text(country.name))
       ],
@@ -246,7 +246,7 @@ class _HomePageState extends State<DemoPage> {
           SizedBox(width: 8.0),
           CurrencyPickerUtils.getDefaultFlagImage(country),
           SizedBox(width: 8.0),
-          Text("+${country.phoneCode}"),
+          Text("+${country.currencyCode}"),
           SizedBox(width: 8.0),
           Flexible(child: Text(country.name))
         ],
