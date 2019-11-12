@@ -39,9 +39,8 @@ class _CurrencyPickerDropdownState extends State<CurrencyPickerDropdown> {
 
   @override
   void initState() {
-    _countries = countryList
-        .where(widget.itemFilter ?? acceptAllCountries)
-        .toList();
+    _countries =
+        countryList.where(widget.itemFilter ?? acceptAllCountries).toList();
 
     if (widget.initialValue != null) {
       try {

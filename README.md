@@ -36,7 +36,7 @@ Countries, codes, flags, currency and several way of picking them at your servic
 
 ```dart
  CurrencyPickerDropdown(
-            initialValue: 'tr',
+            initialValue: 'INR',
             itemBuilder: _buildCurrencyDropdownItem,
             onValuePicked: (Country country) {
               print("${country.name}");

@@ -41,7 +41,8 @@ class CountryPickerUtils {
   static Country getCountryByCurrencyCode(String currencyCode) {
     try {
       return countryList.firstWhere(
-            (country) => country.currencyCode.toLowerCase() == currencyCode.toLowerCase(),
+        (country) =>
+            country.currencyCode.toLowerCase() == currencyCode.toLowerCase(),
       );
     } catch (error) {
       throw Exception(
