@@ -32,6 +32,31 @@ Countries, codes, flags, currency and several way of picking them at your servic
       );
 ```
 
+##### CurrencyPickerDropdown example
+
+```dart
+ CurrencyPickerDropdown(
+            initialValue: 'tr',
+            itemBuilder: _buildCurrencyDropdownItem,
+            onValuePicked: (Country country) {
+              print("${country.name}");
+            },
+          ),
+```
+
+```dart
+ Widget _buildCurrencyDropdownItem(Country country) => Container(
+        child: Row(
+          children: <Widget>[
+            CountryPickerUtils.getDefaultFlagImage(country),
+            SizedBox(
+              width: 8.0,
+            ),
+            Text("${country.currencyCode}"),
+          ],
+        ),
+      );
+```
 
 ##### CountryPickerDialog example
 
@@ -52,6 +77,24 @@ void _openCountryPickerDialog() => showDialog(
       );
 ```
 
+##### CurrencyPickerDialog example
+
+```dart
+void _openCurrencyPickerDialog() => showDialog(
+        context: context,
+        builder: (context) => Theme(
+            data: Theme.of(context).copyWith(primaryColor: Colors.pink),
+            child: CurrencyPickerDialog(
+                titlePadding: EdgeInsets.all(8.0),
+                searchCursorColor: Colors.pinkAccent,
+                searchInputDecoration: InputDecoration(hintText: 'Search...'),
+                isSearchable: true,
+                title: Text('Select your Currency'),
+                onValuePicked: (Country country) =>
+                    setState(() => _selectedDialogCountry = country),
+                itemBuilder: _buildCurrencyDialogItem)),
+      );
+```
 
 
 ##### CountryPickerCupertino example
@@ -68,6 +111,19 @@ void _openCountryPickerDialog() => showDialog(
       });
 ```
 
+##### CurrencyPickerCupertino example
+
+```dart
+ void _openCupertinoCurrencyPicker() => showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return CurrencyPickerCupertino(
+          pickerSheetHeight: 300.0,
+          onValuePicked: (Country country) =>
+              setState(() => _selectedCupertinoCountry = country),
+        );
+      });
+```
 
 ## Credits
 
