@@ -1,6 +1,6 @@
-# country_pickers
+# country_currency_pickers
 
-Countries, codes, flags and several way of picking them at your service...one widget away...
+Countries, codes, flags, currency and several way of picking them at your service...one widget away...
 
 ![](art/cp.gif)
 

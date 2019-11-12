@@ -9,7 +9,7 @@ import 'countries.dart';
 ///Provides a customizable [Dialog] which displays all countries
 /// with optional search feature
 
-class CountryPickerDialog extends StatefulWidget {
+class CurrencyPickerDialog extends StatefulWidget {
   /// Callback that is called with selected Country
   final ValueChanged<Country> onValuePicked;
 
@@ -78,7 +78,7 @@ class CountryPickerDialog extends StatefulWidget {
   ///The search empty view is displayed if nothing returns from search result
   final Widget searchEmptyView;
 
-  CountryPickerDialog({
+  CurrencyPickerDialog({
     Key key,
     this.onValuePicked,
     this.title,
@@ -103,7 +103,7 @@ class CountryPickerDialog extends StatefulWidget {
   }
 }
 
-class SingleChoiceDialogState extends State<CountryPickerDialog> {
+class SingleChoiceDialogState extends State<CurrencyPickerDialog> {
   List<Country> _allCountries;
 
   List<Country> _filteredCountries;
@@ -184,6 +184,8 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
               .where((Country country) =>
                   country.name.toLowerCase().startsWith(value.toLowerCase()) ||
                   country.phoneCode.startsWith(value) ||
+                  country.currencyCode.toLowerCase().startsWith(value) ||
+                  country.currencyName.toLowerCase().startsWith(value) ||
                   country.isoCode.toLowerCase().startsWith(value.toLowerCase()))
               .toList();
         });

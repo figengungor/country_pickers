@@ -17,7 +17,7 @@ const double _kDefaultDiameterRatio = 1.35;
 
 ///Provides a customizable [CupertinoPicker] which displays all countries
 /// in cupertino style
-class CountryPickerCupertino extends StatefulWidget {
+class CurrencyPickerCupertino extends StatefulWidget {
   /// Callback that is called with selected Country
   final ValueChanged<Country> onValuePicked;
 
@@ -74,7 +74,7 @@ class CountryPickerCupertino extends StatefulWidget {
   /// If null, an implicit one will be created internally.
   final FixedExtentScrollController scrollController;
 
-  const CountryPickerCupertino({
+  const CurrencyPickerCupertino({
     Key key,
     this.onValuePicked,
     this.itemBuilder,
@@ -92,10 +92,10 @@ class CountryPickerCupertino extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _CupertinoCountryPickerState createState() => _CupertinoCountryPickerState();
+  _CupertinoCurrencyPickerState createState() => _CupertinoCurrencyPickerState();
 }
 
-class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
+class _CupertinoCurrencyPickerState extends State<CurrencyPickerCupertino> {
   List<Country> _countries;
   FixedExtentScrollController _scrollController;
 
@@ -110,7 +110,7 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
 
     if ((_scrollController == null) && (this.widget.initialCountry != null)) {
       var countyInList = _countries
-          .where((c) => c.phoneCode == this.widget.initialCountry.phoneCode)
+          .where((c) => c.currencyCode == this.widget.initialCountry.currencyCode)
           .first;
       _scrollController = FixedExtentScrollController(
           initialItem: _countries.indexOf(countyInList));

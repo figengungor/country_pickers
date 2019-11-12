@@ -1,5 +1,5 @@
-import 'package:country_pickers/countries.dart';
-import 'package:country_pickers/country.dart';
+import 'package:country_currency_pickers/countries.dart';
+import 'package:country_currency_pickers/country.dart';
 import 'package:flutter/widgets.dart';
 
 class CountryPickerUtils {
@@ -23,7 +23,7 @@ class CountryPickerUtils {
       height: 20.0,
       width: 30.0,
       fit: BoxFit.fill,
-      package: "country_pickers",
+      package: "country_currency_pickers",
     );
   }
 
@@ -35,6 +35,17 @@ class CountryPickerUtils {
     } catch (error) {
       throw Exception(
           "The initialValue provided is not a supported phone code!");
+    }
+  }
+
+  static Country getCountryByCurrencyCode(String currencyCode) {
+    try {
+      return countryList.firstWhere(
+            (country) => country.currencyCode.toLowerCase() == currencyCode.toLowerCase(),
+      );
+    } catch (error) {
+      throw Exception(
+          "The initialValue provided is not a supported currency code!");
     }
   }
 }
