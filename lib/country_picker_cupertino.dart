@@ -106,6 +106,11 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
     _countries =
         countryList.where(widget.itemFilter ?? acceptAllCountries).toList();
 
+    //sorting alphabetically
+    _countries.sort((a, b) {
+      return a.name.toLowerCase().compareTo(b.name.toLowerCase());
+    });
+
     _scrollController = this.widget.scrollController;
 
     if ((_scrollController == null) && (this.widget.initialCountry != null)) {
