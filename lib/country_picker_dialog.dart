@@ -78,7 +78,8 @@ class CountryPickerDialog extends StatefulWidget {
   ///The search empty view is displayed if nothing returns from search result
   final Widget searchEmptyView;
   
-  ///Optional flag to control if dialog should be popped of the navigator when selecting a value.
+  ///By default the dialog will be popped of the navigator on selection of a value. 
+  ///Set popOnPick to false to prevent this behaviour.
   final bool popOnPick;
 
   CountryPickerDialog({
