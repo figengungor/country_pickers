@@ -146,7 +146,7 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
                           : Text(item.name),
                       onPressed: () {
                         widget.onValuePicked(item);
-                        if (popOnPick) {
+                        if (widget.popOnPick) {
                           Navigator.pop(context);
                         }
                       },
