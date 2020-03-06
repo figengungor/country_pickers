@@ -31,7 +31,7 @@ class CountryPickerDropdown extends StatefulWidget {
   final ValueChanged<Country> onValuePicked;
 
   /// Boolean property to enabled/disable expanded property of DropdownButton
-  final bool isExpandEnabled;
+  final bool isExpanded;
 
   @override
   _CountryPickerDropdownState createState() => _CountryPickerDropdownState();
@@ -78,7 +78,7 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
         DropdownButtonHideUnderline(
           child: DropdownButton<Country>(
             isDense: true,
-            isExpanded: widget.isExpandEnabled,
+            isExpanded: widget.isExpanded,
             onChanged: (value) {
               setState(() {
                 _selectedCountry = value;
