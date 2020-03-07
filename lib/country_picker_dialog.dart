@@ -77,6 +77,10 @@ class CountryPickerDialog extends StatefulWidget {
 
   ///The search empty view is displayed if nothing returns from search result
   final Widget searchEmptyView;
+  
+  ///By default the dialog will be popped of the navigator on selection of a value. 
+  ///Set popOnPick to false to prevent this behaviour.
+  final bool popOnPick;
 
   CountryPickerDialog({
     Key key,
@@ -92,6 +96,7 @@ class CountryPickerDialog extends StatefulWidget {
       height: 0.0,
     ),
     this.isSearchable = false,
+    this.popOnPick = true,
     this.searchInputDecoration,
     this.searchCursorColor,
     this.searchEmptyView,
@@ -142,7 +147,9 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
                           : Text(item.name),
                       onPressed: () {
                         widget.onValuePicked(item);
-                        Navigator.pop(context);
+                        if (widget.popOnPick) {
+                          Navigator.pop(context);
+                        }
                       },
                     ))
                 .toList(),
