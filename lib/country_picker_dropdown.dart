@@ -11,7 +11,7 @@ class CountryPickerDropdown extends StatefulWidget {
     this.itemBuilder,
     this.initialValue,
     this.onValuePicked,
-    this.isExpanded
+    this.isExpanded = false,
   });
 
   /// Filters the available country list
