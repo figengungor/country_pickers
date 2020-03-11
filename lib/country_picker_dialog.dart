@@ -51,6 +51,9 @@ class CountryPickerDialog extends StatefulWidget {
   /// Filters the available country list
   final ItemFilter itemFilter;
 
+  /// [Comparator] to be used in sort of country list
+  final Comparator<Country> sortComparator;
+
   ///Callback that is called with selected item of type Country which returns a
   ///Widget to build list view item inside dialog
   final ItemBuilder itemBuilder;
@@ -77,8 +80,8 @@ class CountryPickerDialog extends StatefulWidget {
 
   ///The search empty view is displayed if nothing returns from search result
   final Widget searchEmptyView;
-  
-  ///By default the dialog will be popped of the navigator on selection of a value. 
+
+  ///By default the dialog will be popped of the navigator on selection of a value.
   ///Set popOnPick to false to prevent this behaviour.
   final bool popOnPick;
 
@@ -90,6 +93,7 @@ class CountryPickerDialog extends StatefulWidget {
     this.contentPadding = const EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 16.0),
     this.semanticLabel,
     this.itemFilter,
+    this.sortComparator,
     this.itemBuilder,
     this.isDividerEnabled = false,
     this.divider = const Divider(
@@ -115,9 +119,12 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
 
   @override
   void initState() {
-    _allCountries = countryList
-        .where(widget.itemFilter ?? acceptAllCountries)
-        .toList();
+    _allCountries =
+        countryList.where(widget.itemFilter ?? acceptAllCountries).toList();
+
+    if (widget.sortComparator != null) {
+      _allCountries.sort(widget.sortComparator);
+    }
 
     _filteredCountries = _allCountries;
 

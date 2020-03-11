@@ -127,6 +127,8 @@ class _HomePageState extends State<DemoPage> {
             itemFilter: filtered
                 ? (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode)
                 : null,
+            sortComparator: (Country a, Country b) =>
+                a.isoCode.compareTo(b.isoCode),
             onValuePicked: (Country country) {
               print("${country.name}");
             },
@@ -236,11 +238,10 @@ class _HomePageState extends State<DemoPage> {
 
   Widget _buildCupertinoItem(Country country) {
     return DefaultTextStyle(
-      style:
-          const TextStyle(
-            color: CupertinoColors.white,
-            fontSize: 16.0,
-          ),
+      style: const TextStyle(
+        color: CupertinoColors.white,
+        fontSize: 16.0,
+      ),
       child: Row(
         children: <Widget>[
           SizedBox(width: 8.0),

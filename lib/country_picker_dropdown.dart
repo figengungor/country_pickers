@@ -8,6 +8,7 @@ import 'utils/utils.dart';
 class CountryPickerDropdown extends StatefulWidget {
   CountryPickerDropdown({
     this.itemFilter,
+    this.sortComparator,
     this.itemBuilder,
     this.initialValue,
     this.onValuePicked,
@@ -16,6 +17,9 @@ class CountryPickerDropdown extends StatefulWidget {
 
   /// Filters the available country list
   final ItemFilter itemFilter;
+
+  /// [Comparator] to be used in sort of country list
+  final Comparator<Country> sortComparator;
 
   ///This function will be called to build the child of DropdownMenuItem
   ///If it is not provided, default one will be used which displays
@@ -43,9 +47,12 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
 
   @override
   void initState() {
-    _countries = countryList
-        .where(widget.itemFilter ?? acceptAllCountries)
-        .toList();
+    _countries =
+        countryList.where(widget.itemFilter ?? acceptAllCountries).toList();
+
+    if (widget.sortComparator != null) {
+      _countries.sort(widget.sortComparator);
+    }
 
     if (widget.initialValue != null) {
       try {
