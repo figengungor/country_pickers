@@ -127,6 +127,10 @@ class _HomePageState extends State<DemoPage> {
             itemFilter: filtered
                 ? (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode)
                 : null,
+            priorityList: [
+              CountryPickerUtils.getCountryByIsoCode('GB'),
+              CountryPickerUtils.getCountryByIsoCode('CN'),
+            ],
             sortComparator: (Country a, Country b) =>
                 a.isoCode.compareTo(b.isoCode),
             onValuePicked: (Country country) {
@@ -169,16 +173,22 @@ class _HomePageState extends State<DemoPage> {
   void _openCountryPickerDialog() => showDialog(
         context: context,
         builder: (context) => Theme(
-            data: Theme.of(context).copyWith(primaryColor: Colors.pink),
-            child: CountryPickerDialog(
-                titlePadding: EdgeInsets.all(8.0),
-                searchCursorColor: Colors.pinkAccent,
-                searchInputDecoration: InputDecoration(hintText: 'Search...'),
-                isSearchable: true,
-                title: Text('Select your phone code'),
-                onValuePicked: (Country country) =>
-                    setState(() => _selectedDialogCountry = country),
-                itemBuilder: _buildDialogItem)),
+          data: Theme.of(context).copyWith(primaryColor: Colors.pink),
+          child: CountryPickerDialog(
+            titlePadding: EdgeInsets.all(8.0),
+            searchCursorColor: Colors.pinkAccent,
+            searchInputDecoration: InputDecoration(hintText: 'Search...'),
+            isSearchable: true,
+            title: Text('Select your phone code'),
+            onValuePicked: (Country country) =>
+                setState(() => _selectedDialogCountry = country),
+            itemBuilder: _buildDialogItem,
+            priorityList: [
+              CountryPickerUtils.getCountryByIsoCode('TR'),
+              CountryPickerUtils.getCountryByIsoCode('US'),
+            ],
+          ),
+        ),
       );
 
   void _openFilteredCountryPickerDialog() => showDialog(
@@ -208,6 +218,10 @@ class _HomePageState extends State<DemoPage> {
           initialCountry: _selectedCupertinoCountry,
           onValuePicked: (Country country) =>
               setState(() => _selectedCupertinoCountry = country),
+          priorityList: [
+            CountryPickerUtils.getCountryByIsoCode('TR'),
+            CountryPickerUtils.getCountryByIsoCode('US'),
+          ],
         );
       });
 

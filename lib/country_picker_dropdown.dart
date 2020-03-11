@@ -9,6 +9,7 @@ class CountryPickerDropdown extends StatefulWidget {
   CountryPickerDropdown({
     this.itemFilter,
     this.sortComparator,
+    this.priorityList,
     this.itemBuilder,
     this.initialValue,
     this.onValuePicked,
@@ -20,6 +21,9 @@ class CountryPickerDropdown extends StatefulWidget {
 
   /// [Comparator] to be used in sort of country list
   final Comparator<Country> sortComparator;
+
+  /// List of countries that are placed on top
+  final List<Country> priorityList;
 
   ///This function will be called to build the child of DropdownMenuItem
   ///If it is not provided, default one will be used which displays
@@ -52,6 +56,12 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
 
     if (widget.sortComparator != null) {
       _countries.sort(widget.sortComparator);
+    }
+
+    if (widget.priorityList != null) {
+      widget.priorityList.forEach((Country country) =>
+          _countries.removeWhere((Country c) => country.isoCode == c.isoCode));
+      _countries.insertAll(0, widget.priorityList);
     }
 
     if (widget.initialValue != null) {

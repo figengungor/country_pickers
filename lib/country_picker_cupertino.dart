@@ -27,6 +27,9 @@ class CountryPickerCupertino extends StatefulWidget {
   /// [Comparator] to be used in sort of country list
   final Comparator<Country> sortComparator;
 
+  /// List of countries that are placed on top
+  final List<Country> priorityList;
+
   ///Callback that is called with selected item of type Country which returns a
   ///Widget to build list view item inside dialog
   final ItemBuilder itemBuilder;
@@ -83,6 +86,7 @@ class CountryPickerCupertino extends StatefulWidget {
     this.itemBuilder,
     this.itemFilter,
     this.sortComparator,
+    this.priorityList,
     this.pickerItemHeight = defaultPickerItemHeight,
     this.pickerSheetHeight = defaultPickerSheetHeight,
     this.textStyle,
@@ -112,6 +116,12 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
 
     if (widget.sortComparator != null) {
       _countries.sort(widget.sortComparator);
+    }
+
+    if (widget.priorityList != null) {
+      widget.priorityList.forEach((Country country) =>
+          _countries.removeWhere((Country c) => country.isoCode == c.isoCode));
+      _countries.insertAll(0, widget.priorityList);
     }
 
     _scrollController = this.widget.scrollController;
