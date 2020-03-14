@@ -1,3 +1,14 @@
+## [1.2.0] - 03/14/2020
+
+* Add features(priority list and sort by field) requested in issue [#14](https://github.com/figengungor/country_pickers/issues/14)
+Thanks @muarifer and @ziyan-junaideen
+
+* Add isExpanded property to CountryPickerDropdown [PR #22](https://github.com/figengungor/country_pickers/pull/22)
+Thanks @Pradeepkn
+
+* Add popOnPick property to CountryPickerDialog [PR 24](https://github.com/figengungor/country_pickers/pull/24)
+Thanks @crtl
+
 ## [1.1.0] - 04/26/2019
 * Fix issue
 [#12](https://github.com/figengungor/country_pickers/issues/12) - Fix background color setting for CountryPickerCupertino. Thanks @rhmoeller
