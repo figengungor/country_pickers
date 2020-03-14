@@ -52,7 +52,7 @@ class _HomePageState extends State<DemoPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text('CountryPickerDropdown'),
-                ListTile(title: _buildCountryPickerDropdown(false)),
+                ListTile(title: _buildCountryPickerDropdown()),
               ],
             ),
           ),
@@ -61,7 +61,7 @@ class _HomePageState extends State<DemoPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text('CountryPickerDropdown (filtered)'),
-                ListTile(title: _buildCountryPickerDropdown(true)),
+                ListTile(title: _buildCountryPickerDropdown(filtered: true)),
               ],
             ),
           ),
@@ -69,7 +69,27 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('CountryPickerDialog'),
+                Text('CountryPickerDropdown (sorted by isoCode)'),
+                ListTile(
+                    title: _buildCountryPickerDropdown(sortedByIsoCode: true)),
+              ],
+            ),
+          ),
+          Card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text("CountryPickerDropdown (has priorityList['GB,'CN'])"),
+                ListTile(
+                    title: _buildCountryPickerDropdown(hasPriorityList: true)),
+              ],
+            ),
+          ),
+          Card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text("CountryPickerDialog (has priorityList['TR,'US'])"),
                 ListTile(
                   onTap: _openCountryPickerDialog,
                   title: _buildDialogItem(_selectedDialogCountry),
@@ -93,7 +113,7 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('CountryPickerCupertino'),
+                Text("CountryPickerCupertino (has priorityList['TR,'US'])"),
                 ListTile(
                   title: _buildCupertinoSelectedItem(_selectedCupertinoCountry),
                   onTap: _openCupertinoCountryPicker,
@@ -119,7 +139,11 @@ class _HomePageState extends State<DemoPage> {
     );
   }
 
-  _buildCountryPickerDropdown(bool filtered) => Row(
+  _buildCountryPickerDropdown(
+          {bool filtered = false,
+          bool sortedByIsoCode = false,
+          bool hasPriorityList = false}) =>
+      Row(
         children: <Widget>[
           CountryPickerDropdown(
             initialValue: 'AR',
@@ -127,12 +151,15 @@ class _HomePageState extends State<DemoPage> {
             itemFilter: filtered
                 ? (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode)
                 : null,
-            priorityList: [
-              CountryPickerUtils.getCountryByIsoCode('GB'),
-              CountryPickerUtils.getCountryByIsoCode('CN'),
-            ],
-            sortComparator: (Country a, Country b) =>
-                a.isoCode.compareTo(b.isoCode),
+            priorityList: hasPriorityList
+                ? [
+                    CountryPickerUtils.getCountryByIsoCode('GB'),
+                    CountryPickerUtils.getCountryByIsoCode('CN'),
+                  ]
+                : null,
+            sortComparator: sortedByIsoCode
+                ? (Country a, Country b) => a.isoCode.compareTo(b.isoCode)
+                : null,
             onValuePicked: (Country country) {
               print("${country.name}");
             },
