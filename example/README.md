@@ -2,19 +2,25 @@
 
 Example project that shows usage of country_pickers library.
 
-![](assets/cp.gif)
+![](art/cp.gif)
 
 
 ##### CountryPickerDropdown example
 
 ```dart
  CountryPickerDropdown(
-            initialValue: 'tr',
+            initialValue: 'AR',
             itemBuilder: _buildDropdownItem,
+            itemFilter:  ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode),
+            priorityList:[
+                    CountryPickerUtils.getCountryByIsoCode('GB'),
+                    CountryPickerUtils.getCountryByIsoCode('CN'),
+                  ],
+            sortComparator: (Country a, Country b) => a.isoCode.compareTo(b.isoCode),
             onValuePicked: (Country country) {
               print("${country.name}");
             },
-          ),
+          )
 ```
 
 
@@ -48,6 +54,11 @@ void _openCountryPickerDialog() => showDialog(
                 title: Text('Select your phone code'),
                 onValuePicked: (Country country) =>
                     setState(() => _selectedDialogCountry = country),
+                itemFilter: (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode),
+                priorityList: [
+                  CountryPickerUtils.getCountryByIsoCode('TR'),
+                  CountryPickerUtils.getCountryByIsoCode('US'),
+                 ],
                 itemBuilder: _buildDialogItem)),
       );
 ```
@@ -64,6 +75,17 @@ void _openCountryPickerDialog() => showDialog(
           pickerSheetHeight: 300.0,
           onValuePicked: (Country country) =>
               setState(() => _selectedCupertinoCountry = country),
+          itemFilter: (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode),
+          priorityList: [
+            CountryPickerUtils.getCountryByIsoCode('TR'),
+            CountryPickerUtils.getCountryByIsoCode('US'),
+          ],
         );
       });
+```
+
+
+## Credits
+
+Thanks goes to [country-flags](https://github.com/hjnilsson/country-flags) repo for the flag image assets.
 ```
