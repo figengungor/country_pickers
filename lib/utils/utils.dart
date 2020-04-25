@@ -13,6 +13,16 @@ class CountryPickerUtils {
     }
   }
 
+  static Country getCountryByName(String name) {
+    try {
+      return countryList.firstWhere(
+        (country) => country.name.toLowerCase() == name.toLowerCase(),
+      );
+    } catch (error) {
+      throw Exception("The initialValue provided is not a supported iso code!");
+    }
+  }
+
   static String getFlagImageAssetPath(String isoCode) {
     return "assets/${isoCode.toLowerCase()}.png";
   }
