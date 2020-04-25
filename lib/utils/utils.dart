@@ -3,6 +3,16 @@ import 'package:country_pickers/country.dart';
 import 'package:flutter/widgets.dart';
 
 class CountryPickerUtils {
+  static Country getCountryByIso3Code(String iso3Code) {
+    try {
+      return countryList.firstWhere(
+        (country) => country.iso3Code.toLowerCase() == iso3Code.toLowerCase(),
+      );
+    } catch (error) {
+      throw Exception("The initialValue provided is not a supported iso 3 code!");
+    }
+  }
+
   static Country getCountryByIsoCode(String isoCode) {
     try {
       return countryList.firstWhere(
