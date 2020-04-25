@@ -1,3 +1,13 @@
+## [1.2.1] - 04/25/2020
+
+* getCountryByName and getCountryByIso3Code is added to 
+CountryPickerUtils class. [PR #28](https://github.com/figengungor/country_pickers/pull/28)
+[PR #29](https://github.com/figengungor/country_pickers/pull/29) Thanks @leynier
+
+* searchFilter property is added to CountryPickerDialog [PR #30](https://github.com/figengungor/country_pickers/pull/30)
+Thanks @leynier
+
+
 ## [1.2.0] - 03/14/2020
 
 * Add features(priority list and sort by field) requested in issue [#14](https://github.com/figengungor/country_pickers/issues/14)
