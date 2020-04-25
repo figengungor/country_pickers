@@ -88,8 +88,8 @@ class CountryPickerDialog extends StatefulWidget {
   ///Set popOnPick to false to prevent this behaviour.
   final bool popOnPick;
 
-  ///Custom search function
-  final Function searchFunction;
+  ///Filters the country list for search
+  final SearchFilter searchFilter;
 
   CountryPickerDialog({
     Key key,
@@ -111,7 +111,7 @@ class CountryPickerDialog extends StatefulWidget {
     this.searchInputDecoration,
     this.searchCursorColor,
     this.searchEmptyView,
-    this.searchFunction,
+    this.searchFilter,
   }) : super(key: key);
 
   @override
@@ -209,7 +209,7 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
       onChanged: (String value) {
         setState(() {
           _filteredCountries = _allCountries
-              .where((Country country) => widget.searchFunction == null
+              .where((Country country) => widget.searchFilter == null
                   ? country.name
                           .toLowerCase()
                           .startsWith(value.toLowerCase()) ||
@@ -220,7 +220,7 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
                       country.iso3Code
                           .toLowerCase()
                           .startsWith(value.toLowerCase())
-                  : widget.searchFunction(country, value))
+                  : widget.searchFilter(country, value))
               .toList();
         });
       },

@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 /// offered to the user.
 typedef bool ItemFilter(Country country);
 
+///Predicate to be satisfied in order to add country to search list
+typedef bool SearchFilter(Country country, String searchWord);
+
 typedef Widget ItemBuilder(Country country);
 
 /// Simple closure which always returns true.
