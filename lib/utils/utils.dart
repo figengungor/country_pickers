@@ -29,7 +29,7 @@ class CountryPickerUtils {
         (country) => country.name.toLowerCase() == name.toLowerCase(),
       );
     } catch (error) {
-      throw Exception("The initialValue provided is not a supported iso code!");
+      throw Exception("The initialValue provided is not a supported name!");
     }
   }
 
