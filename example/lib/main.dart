@@ -148,9 +148,6 @@ class _HomePageState extends State<DemoPage> {
           CountryPickerDropdown(
             initialValue: 'AR',
             itemBuilder: _buildDropdownItem,
-            itemFilter: filtered
-                ? (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode)
-                : null,
             priorityList: hasPriorityList
                 ? [
                     CountryPickerUtils.getCountryByIsoCode('GB'),
@@ -162,6 +159,7 @@ class _HomePageState extends State<DemoPage> {
                 : null,
             onValuePicked: (Country country) {
               print("${country.name}");
+              print("${country.flag}");
             },
           ),
           SizedBox(
@@ -182,7 +180,7 @@ class _HomePageState extends State<DemoPage> {
             SizedBox(
               width: 8.0,
             ),
-            Text("+${country.phoneCode}(${country.isoCode})"),
+            Text("+${country.phoneCode}(${country.flag})"),
           ],
         ),
       );
