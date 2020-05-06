@@ -27,16 +27,16 @@ class DemoPage extends StatefulWidget {
 
 class _HomePageState extends State<DemoPage> {
   Country _selectedDialogCountry =
-      CountryPickerUtils.getCountryByPhoneCode('90');
+  CountryPickerUtils.getCountryByPhoneCode('90');
 
   Country _selectedFilteredDialogCountry =
-      CountryPickerUtils.getCountryByPhoneCode('90');
+  CountryPickerUtils.getCountryByPhoneCode('90');
 
   Country _selectedCupertinoCountry =
-      CountryPickerUtils.getCountryByIsoCode('tr');
+  CountryPickerUtils.getCountryByIsoCode('tr');
 
   Country _selectedFilteredCupertinoCountry =
-      CountryPickerUtils.getCountryByIsoCode('DE');
+  CountryPickerUtils.getCountryByIsoCode('DE');
 
   @override
   Widget build(BuildContext context) {
@@ -140,26 +140,28 @@ class _HomePageState extends State<DemoPage> {
   }
 
   _buildCountryPickerDropdown(
-          {bool filtered = false,
-          bool sortedByIsoCode = false,
-          bool hasPriorityList = false}) =>
+      {bool filtered = false,
+        bool sortedByIsoCode = false,
+        bool hasPriorityList = false}) =>
       Row(
         children: <Widget>[
           CountryPickerDropdown(
             initialValue: 'AR',
             itemBuilder: _buildDropdownItem,
+            itemFilter: filtered
+                ? (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode)
+                : null,
             priorityList: hasPriorityList
                 ? [
-                    CountryPickerUtils.getCountryByIsoCode('GB'),
-                    CountryPickerUtils.getCountryByIsoCode('CN'),
-                  ]
+              CountryPickerUtils.getCountryByIsoCode('GB'),
+              CountryPickerUtils.getCountryByIsoCode('CN'),
+            ]
                 : null,
             sortComparator: sortedByIsoCode
                 ? (Country a, Country b) => a.isoCode.compareTo(b.isoCode)
                 : null,
             onValuePicked: (Country country) {
               print("${country.name}");
-              print("${country.flag}");
             },
           ),
           SizedBox(
@@ -174,63 +176,65 @@ class _HomePageState extends State<DemoPage> {
       );
 
   Widget _buildDropdownItem(Country country) => Container(
-        child: Row(
-          children: <Widget>[
-            CountryPickerUtils.getDefaultFlagImage(country),
-            SizedBox(
-              width: 8.0,
-            ),
-            Text("+${country.phoneCode}(${country.flag})"),
-          ],
+    child: Row(
+      children: <Widget>[
+        CountryPickerUtils.getDefaultFlagImage(country),
+        SizedBox(
+          width: 8.0,
         ),
-      );
+        Text("+${country.phoneCode}(${country.isoCode})"),
+      ],
+    ),
+  );
 
   Widget _buildDialogItem(Country country) => Row(
-        children: <Widget>[
-          CountryPickerUtils.getDefaultFlagImage(country),
-          SizedBox(width: 8.0),
-          Text("+${country.phoneCode}"),
-          SizedBox(width: 8.0),
-          Flexible(child: Text(country.name))
-        ],
-      );
+    children: <Widget>[
+      CountryPickerUtils.getDefaultFlagImage(country),
+      SizedBox(width: 8.0),
+      Text("+${country.phoneCode}"),
+      SizedBox(width: 8.0),
+      Flexible(child: Text(country.name)),
+      SizedBox(width: 8.0),
+      Flexible(child: Text(country.flagEmoji)),
+    ],
+  );
 
   void _openCountryPickerDialog() => showDialog(
-        context: context,
-        builder: (context) => Theme(
-          data: Theme.of(context).copyWith(primaryColor: Colors.pink),
-          child: CountryPickerDialog(
+    context: context,
+    builder: (context) => Theme(
+      data: Theme.of(context).copyWith(primaryColor: Colors.pink),
+      child: CountryPickerDialog(
+        titlePadding: EdgeInsets.all(8.0),
+        searchCursorColor: Colors.pinkAccent,
+        searchInputDecoration: InputDecoration(hintText: 'Search...'),
+        isSearchable: true,
+        title: Text('Select your phone code'),
+        onValuePicked: (Country country) =>
+            setState(() => _selectedDialogCountry = country),
+        itemBuilder: _buildDialogItem,
+        priorityList: [
+          CountryPickerUtils.getCountryByIsoCode('TR'),
+          CountryPickerUtils.getCountryByIsoCode('US'),
+        ],
+      ),
+    ),
+  );
+
+  void _openFilteredCountryPickerDialog() => showDialog(
+    context: context,
+    builder: (context) => Theme(
+        data: Theme.of(context).copyWith(primaryColor: Colors.pink),
+        child: CountryPickerDialog(
             titlePadding: EdgeInsets.all(8.0),
             searchCursorColor: Colors.pinkAccent,
             searchInputDecoration: InputDecoration(hintText: 'Search...'),
             isSearchable: true,
             title: Text('Select your phone code'),
             onValuePicked: (Country country) =>
-                setState(() => _selectedDialogCountry = country),
-            itemBuilder: _buildDialogItem,
-            priorityList: [
-              CountryPickerUtils.getCountryByIsoCode('TR'),
-              CountryPickerUtils.getCountryByIsoCode('US'),
-            ],
-          ),
-        ),
-      );
-
-  void _openFilteredCountryPickerDialog() => showDialog(
-        context: context,
-        builder: (context) => Theme(
-            data: Theme.of(context).copyWith(primaryColor: Colors.pink),
-            child: CountryPickerDialog(
-                titlePadding: EdgeInsets.all(8.0),
-                searchCursorColor: Colors.pinkAccent,
-                searchInputDecoration: InputDecoration(hintText: 'Search...'),
-                isSearchable: true,
-                title: Text('Select your phone code'),
-                onValuePicked: (Country country) =>
-                    setState(() => _selectedFilteredDialogCountry = country),
-                itemFilter: (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode),
-                itemBuilder: _buildDialogItem)),
-      );
+                setState(() => _selectedFilteredDialogCountry = country),
+            itemFilter: (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode),
+            itemBuilder: _buildDialogItem)),
+  );
 
   void _openCupertinoCountryPicker() => showCupertinoModalPopup<void>(
       context: context,
