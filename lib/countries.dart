@@ -1168,7 +1168,7 @@ final List<Country> countryList = [
     phoneCode: "44",
     name: "Northern Ireland",
     iso3Code: "GBR",
-    flagEmoji: "🏴󠁧󠁢󠁮󠁩󠁲󠁿",
+    flagEmoji: "🇬🇧󠁧󠁢󠁮󠁩󠁲󠁿",
   ),
   Country(
     isoCode: "MP",
