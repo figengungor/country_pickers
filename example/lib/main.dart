@@ -51,8 +51,19 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('CountryPickerDropdown'),
-                ListTile(title: _buildCountryPickerDropdown()),
+                Text('CountryPickerDropdown (SOLO)'),
+                _buildCountryPickerDropdownSoloExpanded(),
+                //ListTile(title: _buildCountryPickerDropdown(longerText: true)),
+              ],
+            ),
+          ),
+          Card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text('CountryPickerDropdown (selectedItemBuilder)'),
+                _buildCountryPickerDropdown(hasSelectedItemBuilder: true),
+                //ListTile(title: _buildCountryPickerDropdown(longerText: true)),
               ],
             ),
           ),
@@ -139,18 +150,79 @@ class _HomePageState extends State<DemoPage> {
     );
   }
 
+  _buildCountryPickerDropdownSoloExpanded() {
+    return CountryPickerDropdown(
+      underline: Container(
+        height: 2,
+        color: Colors.red,
+      ),
+      //show'em (the text fields) you're in charge now
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      //if you want your dropdown button's selected item UI to be different
+      //than itemBuilder's(dropdown menu item UI), then provide this selectedItemBuilder.
+      onValuePicked: (Country country) {
+        print("${country.name}");
+      },
+      itemBuilder: (Country country) {
+        return Row(
+          children: <Widget>[
+            SizedBox(width: 8.0),
+            CountryPickerUtils.getDefaultFlagImage(country),
+            SizedBox(width: 8.0),
+            Expanded(child: Text(country.name)),
+          ],
+        );
+      },
+      itemHeight: null,
+      isExpanded: true,
+      //initialValue: 'TR',
+      icon: Icon(Icons.arrow_downward),
+    );
+  }
+
   _buildCountryPickerDropdown(
-          {bool filtered = false,
-          bool sortedByIsoCode = false,
-          bool hasPriorityList = false}) =>
-      Row(
-        children: <Widget>[
-          CountryPickerDropdown(
+      {bool filtered = false,
+      bool sortedByIsoCode = false,
+      bool hasPriorityList = false,
+      bool hasSelectedItemBuilder = false}) {
+    double dropdownButtonWidth = MediaQuery.of(context).size.width * 0.5;
+    //respect dropdown button icon size
+    double dropdownItemWidth = dropdownButtonWidth - 30;
+    double dropdownSelectedItemWidth = dropdownButtonWidth - 30;
+    return Row(
+      children: <Widget>[
+        SizedBox(
+          width: dropdownButtonWidth,
+          child: CountryPickerDropdown(
+            /* underline: Container(
+              height: 2,
+              color: Colors.red,
+            ),*/
+            //show'em (the text fields) you're in charge now
+            onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+            //if you have menu items of varying size, itemHeight being null respects
+            //that, IntrinsicHeight under the hood ;).
+            itemHeight: null,
+            //itemHeight being null and isDense being true doesn't play along
+            //well together. One is trying to limit size and other is saying
+            //limit is the sky, therefore conflicts.
+            //false is default but still keep that in mind.
+            isDense: false,
+            //if you want your dropdown button's selected item UI to be different
+            //than itemBuilder's(dropdown menu item UI), then provide this selectedItemBuilder.
+            selectedItemBuilder: hasSelectedItemBuilder == true
+                ? (Country country) => _buildDropdownSelectedItemBuilder(
+                    country, dropdownSelectedItemWidth)
+                : null,
+            //initialValue: 'AR',
+            itemBuilder: (Country country) => hasSelectedItemBuilder == true
+                ? _buildDropdownItemWithLongText(country, dropdownItemWidth)
+                : _buildDropdownItem(country, dropdownItemWidth),
             initialValue: 'AR',
-            itemBuilder: _buildDropdownItem,
             itemFilter: filtered
                 ? (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode)
                 : null,
+            //priorityList is shown at the beginning of list
             priorityList: hasPriorityList
                 ? [
                     CountryPickerUtils.getCountryByIsoCode('GB'),
@@ -164,28 +236,76 @@ class _HomePageState extends State<DemoPage> {
               print("${country.name}");
             },
           ),
-          SizedBox(
-            width: 8.0,
-          ),
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(labelText: "Phone"),
+        ),
+        SizedBox(
+          width: 8.0,
+        ),
+        Expanded(
+          child: TextField(
+            decoration: InputDecoration(
+              labelText: "Phone",
+              isDense: true,
+              contentPadding: EdgeInsets.zero,
             ),
-          )
-        ],
-      );
+            keyboardType: TextInputType.number,
+          ),
+        )
+      ],
+    );
+  }
 
-  Widget _buildDropdownItem(Country country) => Container(
+  Widget _buildDropdownItem(Country country, double dropdownItemWidth) =>
+      SizedBox(
+        width: dropdownItemWidth,
         child: Row(
           children: <Widget>[
             CountryPickerUtils.getDefaultFlagImage(country),
             SizedBox(
               width: 8.0,
             ),
-            Text("+${country.phoneCode}(${country.isoCode})"),
+            Expanded(child: Text("+${country.phoneCode}(${country.isoCode})")),
           ],
         ),
       );
+
+  Widget _buildDropdownItemWithLongText(
+          Country country, double dropdownItemWidth) =>
+      SizedBox(
+        width: dropdownItemWidth,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: <Widget>[
+              CountryPickerUtils.getDefaultFlagImage(country),
+              SizedBox(
+                width: 8.0,
+              ),
+              Expanded(child: Text("${country.name}")),
+            ],
+          ),
+        ),
+      );
+
+  Widget _buildDropdownSelectedItemBuilder(
+          Country country, double dropdownItemWidth) =>
+      SizedBox(
+          width: dropdownItemWidth,
+          child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                children: <Widget>[
+                  CountryPickerUtils.getDefaultFlagImage(country),
+                  SizedBox(
+                    width: 8.0,
+                  ),
+                  Expanded(
+                      child: Text(
+                    '${country.name}',
+                    style: TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold),
+                  )),
+                ],
+              )));
 
   Widget _buildDialogItem(Country country) => Row(
         children: <Widget>[

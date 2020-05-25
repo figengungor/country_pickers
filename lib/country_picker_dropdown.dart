@@ -14,6 +14,19 @@ class CountryPickerDropdown extends StatefulWidget {
     this.initialValue,
     this.onValuePicked,
     this.isExpanded = false,
+    this.itemHeight = kMinInteractiveDimension,
+    this.selectedItemBuilder,
+    this.isDense = false,
+    this.underline,
+    this.dropdownColor,
+    this.onTap,
+    this.icon,
+    this.iconDisabledColor,
+    this.iconEnabledColor,
+    this.iconSize = 24.0,
+    this.hint,
+    this.disabledHint,
+    this.isFirstDefaultIfInitialValueNotProvided = true,
   });
 
   /// Filters the available country list
@@ -40,6 +53,46 @@ class CountryPickerDropdown extends StatefulWidget {
 
   /// Boolean property to enabled/disable expanded property of DropdownButton
   final bool isExpanded;
+
+  /// See [itemHeight] of [DropdownButton]
+  final double itemHeight;
+
+  /// See [isDense] of [DropdownButton]
+  final bool isDense;
+
+  /// See [underline] of [DropdownButton]
+  final Widget underline;
+
+  /// Selected country widget builder to display. See [selectedItemBuilder] of [DropdownButton]
+  final ItemBuilder selectedItemBuilder;
+
+  /// See [dropdownColor] of [DropdownButton]
+  final Color dropdownColor;
+
+  /// See [onTap] of [DropdownButton]
+  final VoidCallback onTap;
+
+  /// See [icon] of [DropdownButton]
+  final Widget icon;
+
+  /// See [iconDisabledColor] of [DropdownButton]
+  final Color iconDisabledColor;
+
+  /// See [iconEnabledColor] of [DropdownButton]
+  final Color iconEnabledColor;
+
+  /// See [iconSize] of [DropdownButton]
+  final double iconSize;
+
+  /// See [hint] of [DropdownButton]
+  final Widget hint;
+
+  /// See [disabledHint] of [DropdownButton]
+  final Widget disabledHint;
+
+  /// Set first item in the country list as selected initially
+  /// if initialValue is not provided
+  final bool isFirstDefaultIfInitialValueNotProvided;
 
   @override
   _CountryPickerDropdownState createState() => _CountryPickerDropdownState();
@@ -74,7 +127,9 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
             "The initialValue provided is not a supported iso code!");
       }
     } else {
-      _selectedCountry = _countries[0];
+      if(widget.isFirstDefaultIfInitialValueNotProvided && _countries.length>0){
+        _selectedCountry = _countries[0];
+      }
     }
 
     super.initState();
@@ -90,23 +145,34 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
                 : _buildDefaultMenuItem(country)))
         .toList();
 
-    return Row(
-      children: <Widget>[
-        DropdownButtonHideUnderline(
-          child: DropdownButton<Country>(
-            isDense: true,
-            isExpanded: widget.isExpanded,
-            onChanged: (value) {
-              setState(() {
-                _selectedCountry = value;
-                widget.onValuePicked(value);
-              });
-            },
-            items: items,
-            value: _selectedCountry,
-          ),
-        ),
-      ],
+    return DropdownButton<Country>(
+      hint: widget.hint,
+      disabledHint: widget.disabledHint,
+      onTap: widget.onTap,
+      icon: widget.icon,
+      iconSize: widget.iconSize,
+      iconDisabledColor: widget.iconDisabledColor,
+      iconEnabledColor: widget.iconEnabledColor,
+      dropdownColor: widget.dropdownColor,
+      underline: widget.underline ?? SizedBox(),
+      isDense: widget.isDense,
+      isExpanded: widget.isExpanded,
+      onChanged: (value) {
+        setState(() {
+          _selectedCountry = value;
+          widget.onValuePicked(value);
+        });
+      },
+      items: items,
+      value: _selectedCountry,
+      itemHeight: widget.itemHeight,
+      selectedItemBuilder: widget.selectedItemBuilder != null
+          ? (context) {
+              return _countries
+                  .map((c) => widget.selectedItemBuilder(c))
+                  .toList();
+            }
+          : null,
     );
   }
 
