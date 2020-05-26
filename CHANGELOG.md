@@ -1,3 +1,9 @@
+## [1.3.0] - 05/26/2020
+
+* Fix issue [#10](https://github.com/figengungor/country_pickers/issues/10) Thanks @ened
+
+* BREAKING CHANGE: CountryPickerDropdown has more customization fields. isDense defaults to false.
+
 ## [1.2.1] - 04/25/2020
 
 * getCountryByName and getCountryByIso3Code is added to 
