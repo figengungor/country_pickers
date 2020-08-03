@@ -213,6 +213,9 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
                   ? country.name
                           .toLowerCase()
                           .startsWith(value.toLowerCase()) ||
+                      country.nameLocalized
+                          .toLowerCase()
+                          .startsWith(value.toLowerCase()) ||
                       country.phoneCode.startsWith(value.toLowerCase()) ||
                       country.isoCode
                           .toLowerCase()
