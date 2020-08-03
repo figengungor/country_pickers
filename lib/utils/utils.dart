@@ -32,6 +32,16 @@ class CountryPickerUtils {
       throw Exception("The initialValue provided is not a supported name!");
     }
   }
+ 
+  static Country getCountryByNameLocalized(String nameLocalized) {
+    try {
+      return countryList.firstWhere(
+        (country) => country.nameLocalized.toLowerCase() == nameLocalized.toLowerCase(),
+      );
+    } catch (error) {
+      throw Exception("The initialValue provided is not a supported nameLocalized!");
+    }
+  }
 
   static String getFlagImageAssetPath(String isoCode) {
     return "assets/${isoCode.toLowerCase()}.png";
