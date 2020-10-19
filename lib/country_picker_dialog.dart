@@ -57,6 +57,9 @@ class CountryPickerDialog extends StatefulWidget {
   /// List of countries that are placed on top
   final List<Country> priorityList;
 
+  /// List of countries
+  final List<Country> countryList;
+
   ///Callback that is called with selected item of type Country which returns a
   ///Widget to build list view item inside dialog
   final ItemBuilder itemBuilder;
@@ -101,6 +104,7 @@ class CountryPickerDialog extends StatefulWidget {
     this.itemFilter,
     this.sortComparator,
     this.priorityList,
+    this.countryList,
     this.itemBuilder,
     this.isDividerEnabled = false,
     this.divider = const Divider(
@@ -127,8 +131,9 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
 
   @override
   void initState() {
+    final _countryList = widget.countryList ?? countryList;
     _allCountries =
-        countryList.where(widget.itemFilter ?? acceptAllCountries).toList();
+        _countryList.where(widget.itemFilter ?? acceptAllCountries).toList();
 
     if (widget.sortComparator != null) {
       _allCountries.sort(widget.sortComparator);
