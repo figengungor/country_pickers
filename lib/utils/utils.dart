@@ -6,7 +6,7 @@ class CountryPickerUtils {
   static Country getCountryByIso3Code(String iso3Code) {
     try {
       return countryList.firstWhere(
-        (country) => country.iso3Code.toLowerCase() == iso3Code.toLowerCase(),
+        (country) => country.iso3Code!.toLowerCase() == iso3Code.toLowerCase(),
       );
     } catch (error) {
       throw Exception("The initialValue provided is not a supported iso 3 code!");
@@ -16,7 +16,7 @@ class CountryPickerUtils {
   static Country getCountryByIsoCode(String isoCode) {
     try {
       return countryList.firstWhere(
-        (country) => country.isoCode.toLowerCase() == isoCode.toLowerCase(),
+        (country) => country.isoCode!.toLowerCase() == isoCode.toLowerCase(),
       );
     } catch (error) {
       throw Exception("The initialValue provided is not a supported iso code!");
@@ -26,7 +26,7 @@ class CountryPickerUtils {
   static Country getCountryByName(String name) {
     try {
       return countryList.firstWhere(
-        (country) => country.name.toLowerCase() == name.toLowerCase(),
+        (country) => country.name!.toLowerCase() == name.toLowerCase(),
       );
     } catch (error) {
       throw Exception("The initialValue provided is not a supported name!");
@@ -39,7 +39,7 @@ class CountryPickerUtils {
 
   static Widget getDefaultFlagImage(Country country) {
     return Image.asset(
-      CountryPickerUtils.getFlagImageAssetPath(country.isoCode),
+      CountryPickerUtils.getFlagImageAssetPath(country.isoCode!),
       height: 20.0,
       width: 30.0,
       fit: BoxFit.fill,
@@ -50,7 +50,7 @@ class CountryPickerUtils {
   static Country getCountryByPhoneCode(String phoneCode) {
     try {
       return countryList.firstWhere(
-        (country) => country.phoneCode.toLowerCase() == phoneCode.toLowerCase(),
+        (country) => country.phoneCode!.toLowerCase() == phoneCode.toLowerCase(),
       );
     } catch (error) {
       throw Exception(
