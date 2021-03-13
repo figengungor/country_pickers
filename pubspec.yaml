@@ -5,7 +5,7 @@ author: Figen Güngör <figengungor1@gmail.com>
 homepage: https://github.com/figengungor/country_pickers
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
