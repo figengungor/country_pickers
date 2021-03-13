@@ -1,3 +1,12 @@
+## [1.3.0] - 03/13/2021
+
+* Null-safety is added
+* Fix issue #40 (Country Code Not available for "Lao People's Democratic Republic") by @Tan-JamickoJohn
+* Fix issue #53 and #59 (Deprecated ButtonTheme.bar is removed) by  @phamnhuvu-dev
+* Fix issue #45 (Search doesn't show all results) by @shadyshrif
+
+Thanks @phamnhuvu-dev, @shadyshrif, @Tan-JamickoJohn
+
 ## [1.3.0] - 05/26/2020
 
 * Fix issue [#10](https://github.com/figengungor/country_pickers/issues/10) Thanks @ened
