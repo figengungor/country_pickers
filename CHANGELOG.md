@@ -1,4 +1,4 @@
-## [1.3.0] - 03/13/2021
+## [2.0.0] - 03/13/2021
 
 * Null-safety is added
 * Fix issue #40 (Country Code Not available for "Lao People's Democratic Republic") by @Tan-JamickoJohn
