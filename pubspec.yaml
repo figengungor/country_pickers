@@ -1,12 +1,11 @@
 name: country_pickers
 description: Countries, codes, flags and several way of picking them at your service...one widget away...
-version: 1.3.0
+version: 2.0.0
 author: Figen Güngör <figengungor1@gmail.com>
 homepage: https://github.com/figengungor/country_pickers
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
-
 dependencies:
   flutter:
     sdk: flutter

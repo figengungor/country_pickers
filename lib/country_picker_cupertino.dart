@@ -127,11 +127,11 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
     _scrollController = this.widget.scrollController;
 
     if ((_scrollController == null) && (this.widget.initialCountry != null)) {
-      var countyInList = _countries
+          var countyInList = _countries
           .where((c) => c.phoneCode == this.widget.initialCountry!.phoneCode)
           .first;
       _scrollController = FixedExtentScrollController(
-          initialItem: _countries.indexOf(countyInList));
+          initialItem: _countries.indexOf(countryInList));
     }
   }
 

@@ -93,7 +93,7 @@ class CountryPickerDialog extends StatefulWidget {
 
   CountryPickerDialog({
     Key? key,
-    this.onValuePicked,
+    required this.onValuePicked,
     this.title,
     this.titlePadding,
     this.contentPadding = const EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 16.0),
@@ -121,7 +121,7 @@ class CountryPickerDialog extends StatefulWidget {
 }
 
 class SingleChoiceDialogState extends State<CountryPickerDialog> {
-  List<Country>? _allCountries;
+ List<Country>? _allCountries;
 
   List<Country>? _filteredCountries;
 
@@ -166,6 +166,7 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
                       child: widget.itemBuilder != null
                           ? widget.itemBuilder!(item)
                           : Text(item.name!),
+
                       onPressed: () {
                         widget.onValuePicked!(item);
                         if (widget.popOnPick) {
@@ -210,7 +211,7 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
         setState(() {
           _filteredCountries = _allCountries!
               .where((Country country) => widget.searchFilter == null
-                  ? country.name!
+? country.name!
                           .toLowerCase()
                           .startsWith(value.toLowerCase()) ||
                       country.phoneCode!.startsWith(value.toLowerCase()) ||

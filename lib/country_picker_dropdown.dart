@@ -7,12 +7,12 @@ import 'utils/utils.dart';
 ///Provides a customizable [DropdownButton] for all countries
 class CountryPickerDropdown extends StatefulWidget {
   CountryPickerDropdown({
+    required this.onValuePicked,
     this.itemFilter,
     this.sortComparator,
     this.priorityList,
     this.itemBuilder,
     this.initialValue,
-    this.onValuePicked,
     this.isExpanded = false,
     this.itemHeight = kMinInteractiveDimension,
     this.selectedItemBuilder,
@@ -55,7 +55,7 @@ class CountryPickerDropdown extends StatefulWidget {
   final bool isExpanded;
 
   /// See [itemHeight] of [DropdownButton]
-  final double itemHeight;
+  final double? itemHeight;
 
   /// See [isDense] of [DropdownButton]
   final bool isDense;
@@ -127,7 +127,8 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
             "The initialValue provided is not a supported iso code!");
       }
     } else {
-      if(widget.isFirstDefaultIfInitialValueNotProvided && _countries.length>0){
+      if (widget.isFirstDefaultIfInitialValueNotProvided &&
+          _countries.length > 0) {
         _selectedCountry = _countries[0];
       }
     }
@@ -162,6 +163,7 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
           _selectedCountry = value;
           widget.onValuePicked!(value);
         });
+
       },
       items: items,
       value: _selectedCountry,

@@ -735,7 +735,7 @@ final List<Country> countryList = [
   ),
   Country(
     isoCode: "LA",
-    phoneCode: "",
+    phoneCode: "856",
     name: "Lao People's Democratic Republic",
     iso3Code: "LAO",
   ),

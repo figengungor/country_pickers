@@ -21,8 +21,7 @@ class MyAlertDialog<T> extends StatelessWidget {
       height: 0.0,
     ),
     this.isDividerEnabled = true,
-  })  : assert(contentPadding != null),
-        super(key: key);
+  }) : super(key: key);
 
   /// The (optional) title of the dialog is displayed in a large font at the top
   /// of the dialog.
@@ -61,7 +60,7 @@ class MyAlertDialog<T> extends StatelessWidget {
   /// The (optional) set of actions that are displayed at the bottom of the
   /// dialog.
   ///
-  /// Typically this is a list of [FlatButton] widgets.
+  /// Typically this is a list of [TextButton] widgets.
   ///
   /// These widgets will be wrapped in a [ButtonBar], which introduces 8 pixels
   /// of padding on each side.
@@ -92,7 +91,7 @@ class MyAlertDialog<T> extends StatelessWidget {
   final Widget divider;
 
   ///[divider] is not displayed if set to false. Default is set to true.
-  final bool isDividerEnabled;
+  final bool? isDividerEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -103,16 +102,17 @@ class MyAlertDialog<T> extends StatelessWidget {
       children.add(new Padding(
         padding: titlePadding ??
             new EdgeInsets.fromLTRB(
-                24.0, 24.0, 24.0, isDividerEnabled ? 20.0 : 0.0),
+                24.0, 24.0, 24.0, isDividerEnabled == true ? 20.0 : 0.0),
         child: new DefaultTextStyle(
           style: Theme.of(context).textTheme.headline6!,
           child: new Semantics(child: title, namesRoute: true),
         ),
       ));
-      if (isDividerEnabled) children.add(divider);
+      if (isDividerEnabled == true) children.add(divider);
     } else {
       switch (defaultTargetPlatform) {
         case TargetPlatform.iOS:
+        case TargetPlatform.macOS:
           label = semanticLabel;
           break;
         case TargetPlatform.macOS:
@@ -122,6 +122,8 @@ class MyAlertDialog<T> extends StatelessWidget {
         case TargetPlatform.windows:
         case TargetPlatform.linux:
         case TargetPlatform.fuchsia:
+        case TargetPlatform.linux:
+        case TargetPlatform.windows:
           label = semanticLabel ??
               MaterialLocalizations.of(context).alertDialogLabel;
       }
@@ -140,15 +142,14 @@ class MyAlertDialog<T> extends StatelessWidget {
     }
 
     if (actions != null) {
-      if (isDividerEnabled) children.add(divider);
-      children.add(new ButtonTheme(
+        if (isDividerEnabled) children.add(divider);
+        children.add(new ButtonTheme(
         child: new ButtonBar(
           children: actions!,
         ),
-      ));
     }
 
-    Widget dialogChild = new Column(
+    Widget dialogChild = Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: children,
