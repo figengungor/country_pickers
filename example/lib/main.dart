@@ -71,6 +71,42 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                Text('CountryPickerDropdown (selectedItemBuilder)'),
+                // 'AR', 'DE', 'GB', 'CN'
+                _buildCountryPickerDropdown(countries: [
+                  Country(
+                    isoCode: "CN",
+                    phoneCode: "86",
+                    name: "中国",
+                    iso3Code: "CHN",
+                  ),
+                  Country(
+                    isoCode: "AR",
+                    phoneCode: "54",
+                    name: "阿根廷",
+                    iso3Code: "ARG",
+                  ),
+                  Country(
+                    isoCode: "DE",
+                    phoneCode: "49",
+                    name: "德国",
+                    iso3Code: "DEU",
+                  ),
+                  Country(
+                    isoCode: "GB",
+                    phoneCode: "44",
+                    name: "英国",
+                    iso3Code: "GBR",
+                  ),
+                ], hasSelectedItemBuilder: true),
+                //ListTile(title: _buildCountryPickerDropdown(longerText: true)),
+              ],
+            ),
+          ),
+          Card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
                 Text('CountryPickerDropdown (filtered)'),
                 ListTile(title: _buildCountryPickerDropdown(filtered: true)),
               ],
@@ -181,7 +217,8 @@ class _HomePageState extends State<DemoPage> {
   }
 
   _buildCountryPickerDropdown(
-      {bool filtered = false,
+      {List<Country> countries,
+      bool filtered = false,
       bool sortedByIsoCode = false,
       bool hasPriorityList = false,
       bool hasSelectedItemBuilder = false}) {
@@ -229,6 +266,7 @@ class _HomePageState extends State<DemoPage> {
                     CountryPickerUtils.getCountryByIsoCode('CN'),
                   ]
                 : null,
+            countryList: countries,
             sortComparator: sortedByIsoCode
                 ? (Country a, Country b) => a.isoCode.compareTo(b.isoCode)
                 : null,
