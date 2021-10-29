@@ -21,6 +21,7 @@ class MyAlertDialog<T> extends StatelessWidget {
       height: 0.0,
     ),
     this.isDividerEnabled = true,
+    this.backgroundColor = Colors.white,
   })  : assert(contentPadding != null),
         super(key: key);
 
@@ -93,6 +94,8 @@ class MyAlertDialog<T> extends StatelessWidget {
 
   ///[divider] is not displayed if set to false. Default is set to true.
   final bool isDividerEnabled;
+  
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +147,7 @@ class MyAlertDialog<T> extends StatelessWidget {
     }
 
     Widget dialogChild = new Container(
-      color: Colors.blue,
+      color: backgroundColor,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
