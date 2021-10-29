@@ -77,6 +77,9 @@ class CountryPickerDialog extends StatefulWidget {
 
   /// The optional [decoration] of search [TextField]
   final InputDecoration searchInputDecoration;
+  
+  //
+  final TextStyle searchInputStyle;
 
   ///The optional [cursorColor] of search [TextField]
   final Color searchCursorColor;
@@ -109,6 +112,7 @@ class CountryPickerDialog extends StatefulWidget {
     this.isSearchable = false,
     this.popOnPick = true,
     this.searchInputDecoration,
+    this.searchInputStyle,
     this.searchCursorColor,
     this.searchEmptyView,
     this.searchFilter,
@@ -206,6 +210,7 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
       cursorColor: widget.searchCursorColor,
       decoration:
           widget.searchInputDecoration ?? InputDecoration(hintText: 'Search'),
+      style: widget.searchInputStyle,
       onChanged: (String value) {
         setState(() {
           _filteredCountries = _allCountries
