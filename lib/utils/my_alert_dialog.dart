@@ -143,10 +143,13 @@ class MyAlertDialog<T> extends StatelessWidget {
       ));
     }
 
-    Widget dialogChild = new Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: children,
+    Widget dialogChild = new Conainer(
+      color: Colors.blue,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: children,
+      )
     );
 
     if (label != null)
