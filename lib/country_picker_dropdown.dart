@@ -7,12 +7,12 @@ import 'utils/utils.dart';
 ///Provides a customizable [DropdownButton] for all countries
 class CountryPickerDropdown extends StatefulWidget {
   CountryPickerDropdown({
+    required this.onValuePicked,
     this.itemFilter,
     this.sortComparator,
     this.priorityList,
     this.itemBuilder,
     this.initialValue,
-    this.onValuePicked,
     this.isExpanded = false,
     this.itemHeight = kMinInteractiveDimension,
     this.selectedItemBuilder,
@@ -30,23 +30,23 @@ class CountryPickerDropdown extends StatefulWidget {
   });
 
   /// Filters the available country list
-  final ItemFilter itemFilter;
+  final ItemFilter? itemFilter;
 
   /// [Comparator] to be used in sort of country list
-  final Comparator<Country> sortComparator;
+  final Comparator<Country>? sortComparator;
 
   /// List of countries that are placed on top
-  final List<Country> priorityList;
+  final List<Country>? priorityList;
 
   ///This function will be called to build the child of DropdownMenuItem
   ///If it is not provided, default one will be used which displays
   ///flag image, isoCode and phoneCode in a row.
   ///Check _buildDefaultMenuItem method for details.
-  final ItemBuilder itemBuilder;
+  final ItemBuilder? itemBuilder;
 
   ///It should be one of the ISO ALPHA-2 Code that is provided
   ///in countryList map of countries.dart file.
-  final String initialValue;
+  final String? initialValue;
 
   ///This function will be called whenever a Country item is selected.
   final ValueChanged<Country> onValuePicked;
@@ -55,40 +55,40 @@ class CountryPickerDropdown extends StatefulWidget {
   final bool isExpanded;
 
   /// See [itemHeight] of [DropdownButton]
-  final double itemHeight;
+  final double? itemHeight;
 
   /// See [isDense] of [DropdownButton]
   final bool isDense;
 
   /// See [underline] of [DropdownButton]
-  final Widget underline;
+  final Widget? underline;
 
   /// Selected country widget builder to display. See [selectedItemBuilder] of [DropdownButton]
-  final ItemBuilder selectedItemBuilder;
+  final ItemBuilder? selectedItemBuilder;
 
   /// See [dropdownColor] of [DropdownButton]
-  final Color dropdownColor;
+  final Color? dropdownColor;
 
   /// See [onTap] of [DropdownButton]
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   /// See [icon] of [DropdownButton]
-  final Widget icon;
+  final Widget? icon;
 
   /// See [iconDisabledColor] of [DropdownButton]
-  final Color iconDisabledColor;
+  final Color? iconDisabledColor;
 
   /// See [iconEnabledColor] of [DropdownButton]
-  final Color iconEnabledColor;
+  final Color? iconEnabledColor;
 
   /// See [iconSize] of [DropdownButton]
   final double iconSize;
 
   /// See [hint] of [DropdownButton]
-  final Widget hint;
+  final Widget? hint;
 
   /// See [disabledHint] of [DropdownButton]
-  final Widget disabledHint;
+  final Widget? disabledHint;
 
   /// Set first item in the country list as selected initially
   /// if initialValue is not provided
@@ -99,8 +99,8 @@ class CountryPickerDropdown extends StatefulWidget {
 }
 
 class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
-  List<Country> _countries;
-  Country _selectedCountry;
+  late List<Country> _countries;
+  late Country _selectedCountry;
 
   @override
   void initState() {
@@ -112,22 +112,23 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
     }
 
     if (widget.priorityList != null) {
-      widget.priorityList.forEach((Country country) =>
+      widget.priorityList!.forEach((Country country) =>
           _countries.removeWhere((Country c) => country.isoCode == c.isoCode));
-      _countries.insertAll(0, widget.priorityList);
+      _countries.insertAll(0, widget.priorityList!);
     }
 
     if (widget.initialValue != null) {
       try {
         _selectedCountry = _countries.firstWhere(
-          (country) => country.isoCode == widget.initialValue.toUpperCase(),
+          (country) => country.isoCode == widget.initialValue!.toUpperCase(),
         );
       } catch (error) {
         throw Exception(
             "The initialValue provided is not a supported iso code!");
       }
     } else {
-      if(widget.isFirstDefaultIfInitialValueNotProvided && _countries.length>0){
+      if (widget.isFirstDefaultIfInitialValueNotProvided &&
+          _countries.length > 0) {
         _selectedCountry = _countries[0];
       }
     }
@@ -141,7 +142,7 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
         .map((country) => DropdownMenuItem<Country>(
             value: country,
             child: widget.itemBuilder != null
-                ? widget.itemBuilder(country)
+                ? widget.itemBuilder!(country)
                 : _buildDefaultMenuItem(country)))
         .toList();
 
@@ -158,10 +159,12 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
       isDense: widget.isDense,
       isExpanded: widget.isExpanded,
       onChanged: (value) {
-        setState(() {
-          _selectedCountry = value;
-          widget.onValuePicked(value);
-        });
+        if (value != null) {
+          setState(() {
+            _selectedCountry = value;
+            widget.onValuePicked(value);
+          });
+        }
       },
       items: items,
       value: _selectedCountry,
@@ -169,7 +172,7 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
       selectedItemBuilder: widget.selectedItemBuilder != null
           ? (context) {
               return _countries
-                  .map((c) => widget.selectedItemBuilder(c))
+                  .map((c) => widget.selectedItemBuilder!(c))
                   .toList();
             }
           : null,
