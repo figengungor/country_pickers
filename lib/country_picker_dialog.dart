@@ -162,6 +162,14 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
   }
 
   _buildContent(BuildContext context) {
+    var x = true;
+    
+    if (x) {
+      return Container(
+        color: Colors.red,
+        child: Text('holi')
+      ); 
+    }
     return _filteredCountries.isNotEmpty
         ? ListView(
             shrinkWrap: true,
