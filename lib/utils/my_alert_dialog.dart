@@ -143,7 +143,7 @@ class MyAlertDialog<T> extends StatelessWidget {
       ));
     }
 
-    Widget dialogChild = new Conainer(
+    Widget dialogChild = new Container(
       color: Colors.blue,
       child: Column(
         mainAxisSize: MainAxisSize.min,
