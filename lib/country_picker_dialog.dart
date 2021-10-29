@@ -17,7 +17,7 @@ class CountryPickerDialog extends StatefulWidget {
   /// of the dialog.
   ///
   /// Typically a [Text] widget.
-  final Widget title;
+  final Widget? title;
 
   /// Padding around the title.
   ///
@@ -29,7 +29,7 @@ class CountryPickerDialog extends StatefulWidget {
   /// provided (but see [contentPadding]). If it _is_ null, then an extra 20
   /// pixels of bottom padding is added to separate the [title] from the
   /// [actions].
-  final EdgeInsetsGeometry titlePadding;
+  final EdgeInsetsGeometry? titlePadding;
 
   /// Padding around the content.
 
@@ -46,20 +46,20 @@ class CountryPickerDialog extends StatefulWidget {
   ///
   ///  * [SemanticsConfiguration.isRouteName], for a description of how this
   ///    value is used.
-  final String semanticLabel;
+  final String? semanticLabel;
 
   /// Filters the available country list
-  final ItemFilter itemFilter;
+  final ItemFilter? itemFilter;
 
   /// [Comparator] to be used in sort of country list
-  final Comparator<Country> sortComparator;
+  final Comparator<Country>? sortComparator;
 
   /// List of countries that are placed on top
-  final List<Country> priorityList;
+  final List<Country>? priorityList;
 
   ///Callback that is called with selected item of type Country which returns a
   ///Widget to build list view item inside dialog
-  final ItemBuilder itemBuilder;
+  final ItemBuilder? itemBuilder;
 
   /// The (optional) horizontal separator used between title, content and
   /// actions.
@@ -77,12 +77,15 @@ class CountryPickerDialog extends StatefulWidget {
 
   /// The optional [decoration] of search [TextField]
   final InputDecoration searchInputDecoration;
+  
+  //
+  final TextStyle searchInputStyle;
 
   ///The optional [cursorColor] of search [TextField]
-  final Color searchCursorColor;
+  final Color? searchCursorColor;
 
   ///The search empty view is displayed if nothing returns from search result
-  final Widget searchEmptyView;
+  final Widget? searchEmptyView;
 
   ///By default the dialog will be popped of the navigator on selection of a value.
   ///Set popOnPick to false to prevent this behaviour.
@@ -90,10 +93,12 @@ class CountryPickerDialog extends StatefulWidget {
 
   ///Filters the country list for search
   final SearchFilter searchFilter;
+  
+  final Color backgroundColor;
 
   CountryPickerDialog({
-    Key key,
-    this.onValuePicked,
+    Key? key,
+    required this.onValuePicked,
     this.title,
     this.titlePadding,
     this.contentPadding = const EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 16.0),
@@ -109,9 +114,11 @@ class CountryPickerDialog extends StatefulWidget {
     this.isSearchable = false,
     this.popOnPick = true,
     this.searchInputDecoration,
+    this.searchInputStyle,
     this.searchCursorColor,
     this.searchEmptyView,
     this.searchFilter,
+    this.backgroundColor,
   }) : super(key: key);
 
   @override
@@ -121,9 +128,9 @@ class CountryPickerDialog extends StatefulWidget {
 }
 
 class SingleChoiceDialogState extends State<CountryPickerDialog> {
-  List<Country> _allCountries;
+  late List<Country> _allCountries;
 
-  List<Country> _filteredCountries;
+  late List<Country> _filteredCountries;
 
   @override
   void initState() {
@@ -135,9 +142,9 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
     }
 
     if (widget.priorityList != null) {
-      widget.priorityList.forEach((Country country) => _allCountries
+      widget.priorityList!.forEach((Country country) => _allCountries
           .removeWhere((Country c) => country.isoCode == c.isoCode));
-      _allCountries.insertAll(0, widget.priorityList);
+      _allCountries.insertAll(0, widget.priorityList!);
     }
 
     _filteredCountries = _allCountries;
@@ -154,6 +161,7 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
       content: _buildContent(context),
       isDividerEnabled: widget.isDividerEnabled,
       divider: widget.divider,
+      backgroundColor: widget.backgroundColor,
     );
   }
 
@@ -164,7 +172,7 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
             children: _filteredCountries
                 .map((item) => SimpleDialogOption(
                       child: widget.itemBuilder != null
-                          ? widget.itemBuilder(item)
+                          ? widget.itemBuilder!(item)
                           : Text(item.name),
                       onPressed: () {
                         widget.onValuePicked(item);
@@ -195,7 +203,7 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
   _buildTitle() {
     return widget.titlePadding != null
         ? Padding(
-            padding: widget.titlePadding,
+            padding: widget.titlePadding!,
             child: widget.title,
           )
         : widget.title;
@@ -206,13 +214,12 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
       cursorColor: widget.searchCursorColor,
       decoration:
           widget.searchInputDecoration ?? InputDecoration(hintText: 'Search'),
+      style: widget.searchInputStyle,
       onChanged: (String value) {
         setState(() {
           _filteredCountries = _allCountries
               .where((Country country) => widget.searchFilter == null
-                  ? country.name
-                          .toLowerCase()
-                          .startsWith(value.toLowerCase()) ||
+                  ? country.name.toLowerCase().contains(value.toLowerCase()) ||
                       country.phoneCode.startsWith(value.toLowerCase()) ||
                       country.isoCode
                           .toLowerCase()
@@ -220,7 +227,7 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
                       country.iso3Code
                           .toLowerCase()
                           .startsWith(value.toLowerCase())
-                  : widget.searchFilter(country, value))
+                  : widget.searchFilter!(country, value))
               .toList();
         });
       },
