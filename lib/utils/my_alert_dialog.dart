@@ -21,7 +21,9 @@ class MyAlertDialog<T> extends StatelessWidget {
       height: 0.0,
     ),
     this.isDividerEnabled = true,
-  }) : super(key: key);
+    this.backgroundColor = Colors.white,
+  })  : assert(contentPadding != null),
+        super(key: key);
 
   /// The (optional) title of the dialog is displayed in a large font at the top
   /// of the dialog.
@@ -68,7 +70,7 @@ class MyAlertDialog<T> extends StatelessWidget {
   /// If the [title] is not null but the [content] _is_ null, then an extra 20
   /// pixels of padding is added above the [ButtonBar] to separate the [title]
   /// from the [actions].
-  final List<Widget>? actions;
+  final List<Widget> actions;
 
   /// The semantic label of the dialog used by accessibility frameworks to
   /// announce screen transitions when the dialog is opened and closed.
@@ -91,7 +93,9 @@ class MyAlertDialog<T> extends StatelessWidget {
   final Widget divider;
 
   ///[divider] is not displayed if set to false. Default is set to true.
-  final bool? isDividerEnabled;
+  final bool isDividerEnabled;
+  
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -137,16 +141,21 @@ class MyAlertDialog<T> extends StatelessWidget {
     }
 
     if (actions != null) {
-      if (isDividerEnabled == true) children.add(divider);
-      children.add(ButtonBar(
-        children: actions!,
+      if (isDividerEnabled) children.add(divider);
+      children.add(new ButtonTheme(
+        child: new ButtonBar(
+          children: actions,
+        ),
       ));
     }
 
-    Widget dialogChild = Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: children,
+    Widget dialogChild = new Container(
+      color: backgroundColor,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: children,
+      )
     );
 
     if (label != null)
