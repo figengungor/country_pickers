@@ -3,7 +3,6 @@ import 'package:country_pickers/utils/typedefs.dart';
 
 import 'package:country_pickers/utils/my_alert_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'countries.dart';
 
 ///Provides a customizable [Dialog] which displays all countries
@@ -91,6 +90,9 @@ class CountryPickerDialog extends StatefulWidget {
   ///Filters the country list for search
   final SearchFilter? searchFilter;
 
+  final double? height;
+  final double? width;
+
   CountryPickerDialog({
     Key? key,
     required this.onValuePicked,
@@ -112,6 +114,8 @@ class CountryPickerDialog extends StatefulWidget {
     this.searchCursorColor,
     this.searchEmptyView,
     this.searchFilter,
+    this.height,
+    this.width,
   }) : super(key: key);
 
   @override
@@ -154,6 +158,8 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
       content: _buildContent(context),
       isDividerEnabled: widget.isDividerEnabled,
       divider: widget.divider,
+      height: widget.height,
+      width: widget.width,
     );
   }
 
