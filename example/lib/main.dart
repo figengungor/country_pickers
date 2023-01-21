@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:country_pickers/country_pickers.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,18 +16,20 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/': (context) => DemoPage(),
+        '/': (context) => const HomePage(),
       },
     );
   }
 }
 
-class DemoPage extends StatefulWidget {
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<DemoPage> {
+class _HomePageState extends State<HomePage> {
   Country _selectedDialogCountry =
       CountryPickerUtils.getCountryByPhoneCode('90');
 
@@ -42,16 +46,16 @@ class _HomePageState extends State<DemoPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Country Pickers Demo'),
+        title: const Text('Country Pickers Demo'),
       ),
       body: ListView(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         children: <Widget>[
           Card(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('CountryPickerDropdown (SOLO)'),
+                const Text('CountryPickerDropdown (SOLO)'),
                 _buildCountryPickerDropdownSoloExpanded(),
                 //ListTile(title: _buildCountryPickerDropdown(longerText: true)),
               ],
@@ -61,7 +65,7 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('CountryPickerDropdown (selectedItemBuilder)'),
+                const Text('CountryPickerDropdown (selectedItemBuilder)'),
                 _buildCountryPickerDropdown(hasSelectedItemBuilder: true),
                 //ListTile(title: _buildCountryPickerDropdown(longerText: true)),
               ],
@@ -71,7 +75,7 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('CountryPickerDropdown (filtered)'),
+                const Text('CountryPickerDropdown (filtered)'),
                 ListTile(title: _buildCountryPickerDropdown(filtered: true)),
               ],
             ),
@@ -80,7 +84,7 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('CountryPickerDropdown (sorted by isoCode)'),
+                const Text('CountryPickerDropdown (sorted by isoCode)'),
                 ListTile(
                     title: _buildCountryPickerDropdown(sortedByIsoCode: true)),
               ],
@@ -90,7 +94,7 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text("CountryPickerDropdown (has priorityList['GB,'CN'])"),
+                const Text("CountryPickerDropdown (has priorityList['GB,'CN'])"),
                 ListTile(
                     title: _buildCountryPickerDropdown(hasPriorityList: true)),
               ],
@@ -100,7 +104,7 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text("CountryPickerDialog (has priorityList['TR,'US'])"),
+                const Text("CountryPickerDialog (has priorityList['TR,'US'])"),
                 ListTile(
                   onTap: _openCountryPickerDialog,
                   title: _buildDialogItem(_selectedDialogCountry),
@@ -112,7 +116,7 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('CountryPickerDialog (filtered)'),
+                const Text('CountryPickerDialog (filtered)'),
                 ListTile(
                   onTap: _openFilteredCountryPickerDialog,
                   title: _buildDialogItem(_selectedFilteredDialogCountry),
@@ -124,7 +128,7 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text("CountryPickerCupertino (has priorityList['TR,'US'])"),
+                const Text("CountryPickerCupertino (has priorityList['TR,'US'])"),
                 ListTile(
                   title: _buildCupertinoSelectedItem(_selectedCupertinoCountry),
                   onTap: _openCupertinoCountryPicker,
@@ -136,7 +140,7 @@ class _HomePageState extends State<DemoPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text('CountryPickerCupertino (filtered)'),
+                const Text('CountryPickerCupertino (filtered)'),
                 ListTile(
                   title: _buildCupertinoSelectedItem(
                       _selectedFilteredCupertinoCountry),
@@ -161,14 +165,14 @@ class _HomePageState extends State<DemoPage> {
       //if you want your dropdown button's selected item UI to be different
       //than itemBuilder's(dropdown menu item UI), then provide this selectedItemBuilder.
       onValuePicked: (Country country) {
-        print("${country.name}");
+        debugPrint(country.name);
       },
       itemBuilder: (Country country) {
         return Row(
           children: <Widget>[
-            SizedBox(width: 8.0),
+            const SizedBox(width: 8.0),
             CountryPickerUtils.getDefaultFlagImage(country),
-            SizedBox(width: 8.0),
+            const SizedBox(width: 8.0),
             Expanded(child: Text(country.name)),
           ],
         );
@@ -176,7 +180,7 @@ class _HomePageState extends State<DemoPage> {
       itemHeight: null,
       isExpanded: true,
       //initialValue: 'TR',
-      icon: Icon(Icons.arrow_downward),
+      icon: const Icon(Icons.arrow_downward),
     );
   }
 
@@ -233,14 +237,14 @@ class _HomePageState extends State<DemoPage> {
                 ? (Country a, Country b) => a.isoCode.compareTo(b.isoCode)
                 : null,
             onValuePicked: (Country country) {
-              print("${country.name}");
+              debugPrint(country.name);
             },
           ),
         ),
-        SizedBox(
+        const SizedBox(
           width: 8.0,
         ),
-        Expanded(
+        const Expanded(
           child: TextField(
             decoration: InputDecoration(
               labelText: "Phone",
@@ -260,7 +264,7 @@ class _HomePageState extends State<DemoPage> {
         child: Row(
           children: <Widget>[
             CountryPickerUtils.getDefaultFlagImage(country),
-            SizedBox(
+            const SizedBox(
               width: 8.0,
             ),
             Expanded(child: Text("+${country.phoneCode}(${country.isoCode})")),
@@ -277,10 +281,10 @@ class _HomePageState extends State<DemoPage> {
           child: Row(
             children: <Widget>[
               CountryPickerUtils.getDefaultFlagImage(country),
-              SizedBox(
+              const SizedBox(
                 width: 8.0,
               ),
-              Expanded(child: Text("${country.name}")),
+              Expanded(child: Text(country.name)),
             ],
           ),
         ),
@@ -295,13 +299,13 @@ class _HomePageState extends State<DemoPage> {
               child: Row(
                 children: <Widget>[
                   CountryPickerUtils.getDefaultFlagImage(country),
-                  SizedBox(
+                  const SizedBox(
                     width: 8.0,
                   ),
                   Expanded(
                       child: Text(
-                    '${country.name}',
-                    style: TextStyle(
+                    country.name,
+                    style: const TextStyle(
                         color: Colors.red, fontWeight: FontWeight.bold),
                   )),
                 ],
@@ -310,9 +314,9 @@ class _HomePageState extends State<DemoPage> {
   Widget _buildDialogItem(Country country) => Row(
         children: <Widget>[
           CountryPickerUtils.getDefaultFlagImage(country),
-          SizedBox(width: 8.0),
+          const SizedBox(width: 8.0),
           Text("+${country.phoneCode}"),
-          SizedBox(width: 8.0),
+          const SizedBox(width: 8.0),
           Flexible(child: Text(country.name))
         ],
       );
@@ -322,11 +326,11 @@ class _HomePageState extends State<DemoPage> {
         builder: (context) => Theme(
           data: Theme.of(context).copyWith(primaryColor: Colors.pink),
           child: CountryPickerDialog(
-            titlePadding: EdgeInsets.all(8.0),
+            titlePadding: const EdgeInsets.all(8.0),
             searchCursorColor: Colors.pinkAccent,
-            searchInputDecoration: InputDecoration(hintText: 'Search...'),
+            searchInputDecoration: const InputDecoration(hintText: 'Search...'),
             isSearchable: true,
-            title: Text('Select your phone code'),
+            title: const Text('Select your phone code'),
             onValuePicked: (Country country) =>
                 setState(() => _selectedDialogCountry = country),
             itemBuilder: _buildDialogItem,
@@ -343,11 +347,11 @@ class _HomePageState extends State<DemoPage> {
         builder: (context) => Theme(
             data: Theme.of(context).copyWith(primaryColor: Colors.pink),
             child: CountryPickerDialog(
-                titlePadding: EdgeInsets.all(8.0),
+                titlePadding: const EdgeInsets.all(8.0),
                 searchCursorColor: Colors.pinkAccent,
-                searchInputDecoration: InputDecoration(hintText: 'Search...'),
+                searchInputDecoration: const InputDecoration(hintText: 'Search...'),
                 isSearchable: true,
-                title: Text('Select your phone code'),
+                title: const Text('Select your phone code'),
                 onValuePicked: (Country country) =>
                     setState(() => _selectedFilteredDialogCountry = country),
                 itemFilter: (c) => ['AR', 'DE', 'GB', 'CN'].contains(c.isoCode),
@@ -389,9 +393,9 @@ class _HomePageState extends State<DemoPage> {
     return Row(
       children: <Widget>[
         CountryPickerUtils.getDefaultFlagImage(country),
-        SizedBox(width: 8.0),
+        const SizedBox(width: 8.0),
         Text("+${country.phoneCode}"),
-        SizedBox(width: 8.0),
+        const SizedBox(width: 8.0),
         Flexible(child: Text(country.name))
       ],
     );
@@ -405,11 +409,11 @@ class _HomePageState extends State<DemoPage> {
       ),
       child: Row(
         children: <Widget>[
-          SizedBox(width: 8.0),
+          const SizedBox(width: 8.0),
           CountryPickerUtils.getDefaultFlagImage(country),
-          SizedBox(width: 8.0),
+          const SizedBox(width: 8.0),
           Text("+${country.phoneCode}"),
-          SizedBox(width: 8.0),
+          const SizedBox(width: 8.0),
           Flexible(child: Text(country.name))
         ],
       ),

@@ -6,7 +6,7 @@ import 'utils/utils.dart';
 
 ///Provides a customizable [DropdownButton] for all countries
 class CountryPickerDropdown extends StatefulWidget {
-  CountryPickerDropdown({
+  const CountryPickerDropdown({Key? key,
     required this.onValuePicked,
     this.itemFilter,
     this.sortComparator,
@@ -27,7 +27,7 @@ class CountryPickerDropdown extends StatefulWidget {
     this.hint,
     this.disabledHint,
     this.isFirstDefaultIfInitialValueNotProvided = true,
-  });
+  }) : super(key: key);
 
   /// Filters the available country list
   final ItemFilter? itemFilter;
@@ -95,7 +95,7 @@ class CountryPickerDropdown extends StatefulWidget {
   final bool isFirstDefaultIfInitialValueNotProvided;
 
   @override
-  _CountryPickerDropdownState createState() => _CountryPickerDropdownState();
+  State<CountryPickerDropdown> createState() => _CountryPickerDropdownState();
 }
 
 class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
@@ -112,8 +112,9 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
     }
 
     if (widget.priorityList != null) {
-      widget.priorityList!.forEach((Country country) =>
-          _countries.removeWhere((Country c) => country.isoCode == c.isoCode));
+      for (var country in widget.priorityList!) {
+        _countries.removeWhere((Country c) => country.isoCode == c.isoCode);
+      }
       _countries.insertAll(0, widget.priorityList!);
     }
 
@@ -128,7 +129,7 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
       }
     } else {
       if (widget.isFirstDefaultIfInitialValueNotProvided &&
-          _countries.length > 0) {
+          _countries.isNotEmpty) {
         _selectedCountry = _countries[0];
       }
     }
@@ -155,7 +156,7 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
       iconDisabledColor: widget.iconDisabledColor,
       iconEnabledColor: widget.iconEnabledColor,
       dropdownColor: widget.dropdownColor,
-      underline: widget.underline ?? SizedBox(),
+      underline: widget.underline ?? const SizedBox(),
       isDense: widget.isDense,
       isExpanded: widget.isExpanded,
       onChanged: (value) {
@@ -183,7 +184,7 @@ class _CountryPickerDropdownState extends State<CountryPickerDropdown> {
     return Row(
       children: <Widget>[
         CountryPickerUtils.getDefaultFlagImage(country),
-        SizedBox(
+        const SizedBox(
           width: 8.0,
         ),
         Text("(${country.isoCode}) +${country.phoneCode}"),
