@@ -1,9 +1,8 @@
 import 'package:country_pickers/country.dart';
-import 'package:country_pickers/utils/typedefs.dart';
-
 import 'package:country_pickers/utils/my_alert_dialog.dart';
+import 'package:country_pickers/utils/typedefs.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
+
 import 'countries.dart';
 
 ///Provides a customizable [Dialog] which displays all countries
@@ -116,7 +115,7 @@ class CountryPickerDialog extends StatefulWidget {
 
   @override
   SingleChoiceDialogState createState() {
-    return new SingleChoiceDialogState();
+    return SingleChoiceDialogState();
   }
 }
 
