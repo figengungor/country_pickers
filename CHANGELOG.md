@@ -1,6 +1,7 @@
 ## [2.0.0] - 05/20/2024
 
 * Fix breaking changes comes with Flutter 3.22.0
+* Bump version to 3.0.0
 
 ## [2.0.0] - 03/13/2021
 
