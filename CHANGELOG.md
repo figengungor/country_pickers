@@ -1,4 +1,9 @@
-## [2.0.0] - 05/20/2024
+## [3.0.1] - 05/20/2024
+
+* Add Canary Islands by @tulioccalazans
+* Add flutter_lints and fix analysis warnings
+
+## [3.0.0] - 05/20/2024
 
 * Fix breaking changes comes with Flutter 3.22.0
 * Bump version to 3.0.0

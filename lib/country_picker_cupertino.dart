@@ -81,7 +81,7 @@ class CountryPickerCupertino extends StatefulWidget {
   final FixedExtentScrollController? scrollController;
 
   const CountryPickerCupertino({
-    Key? key,
+    super.key,
     required this.onValuePicked,
     this.itemBuilder,
     this.itemFilter,
@@ -97,10 +97,10 @@ class CountryPickerCupertino extends StatefulWidget {
     this.magnification = 1.0,
     this.scrollController,
     this.initialCountry,
-  }) : super(key: key);
+  });
 
   @override
-  _CupertinoCountryPickerState createState() => _CupertinoCountryPickerState();
+  State<CountryPickerCupertino> createState() => _CupertinoCountryPickerState();
 }
 
 class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
@@ -119,16 +119,17 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
     }
 
     if (widget.priorityList != null) {
-      widget.priorityList!.forEach((Country country) =>
-          _countries.removeWhere((Country c) => country.isoCode == c.isoCode));
+      for (var country in widget.priorityList!) {
+        _countries.removeWhere((Country c) => country.isoCode == c.isoCode);
+      }
       _countries.insertAll(0, widget.priorityList!);
     }
 
-    _scrollController = this.widget.scrollController;
+    _scrollController = widget.scrollController;
 
-    if ((_scrollController == null) && (this.widget.initialCountry != null)) {
+    if ((_scrollController == null) && (widget.initialCountry != null)) {
       var countryInList = _countries
-          .where((c) => c.phoneCode == this.widget.initialCountry!.phoneCode)
+          .where((c) => c.phoneCode == widget.initialCountry!.phoneCode)
           .first;
       _scrollController = FixedExtentScrollController(
           initialItem: _countries.indexOf(countryInList));
@@ -188,7 +189,7 @@ class _CupertinoCountryPickerState extends State<CountryPickerCupertino> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
           CountryPickerUtils.getDefaultFlagImage(country),
-          SizedBox(width: 8.0),
+          const SizedBox(width: 8.0),
           Flexible(child: Text(country.name))
         ],
       ),
