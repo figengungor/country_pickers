@@ -90,6 +90,9 @@ class CountryPickerDialog extends StatefulWidget {
   ///Filters the country list for search
   final SearchFilter? searchFilter;
 
+  final double? height;
+  final double? width;
+
   CountryPickerDialog({
     Key? key,
     required this.onValuePicked,
@@ -111,6 +114,8 @@ class CountryPickerDialog extends StatefulWidget {
     this.searchCursorColor,
     this.searchEmptyView,
     this.searchFilter,
+    this.height,
+    this.width,
   }) : super(key: key);
 
   @override
@@ -153,6 +158,8 @@ class SingleChoiceDialogState extends State<CountryPickerDialog> {
       content: _buildContent(context),
       isDividerEnabled: widget.isDividerEnabled,
       divider: widget.divider,
+      height: widget.height,
+      width: widget.width,
     );
   }
 
