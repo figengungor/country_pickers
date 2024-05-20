@@ -3,7 +3,6 @@ import 'package:country_pickers/utils/typedefs.dart';
 
 import 'package:country_pickers/utils/my_alert_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/foundation.dart';
 import 'countries.dart';
 
 ///Provides a customizable [Dialog] which displays all countries
